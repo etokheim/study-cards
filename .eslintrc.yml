@@ -1,0 +1,72 @@
+env:
+  browser: true
+  es2020: true
+  jest: true
+extends:
+  - 'plugin:react/recommended'
+  - airbnb
+parserOptions:
+  ecmaFeatures:
+    jsx: true
+  ecmaVersion: 11
+  sourceType: module
+plugins:
+  - react
+rules:
+  # Switch to the superior tab indentation style
+  indent:
+    - error
+    - tab
+
+    # Of course we will also indent switch statements
+    - SwitchCase: 1
+  
+  # Stop displaying annoying errors while I'm working.
+  no-unused-vars:
+    - off
+  no-console:
+    - off
+  no-tabs:
+    - off
+  react/jsx-filename-extension:
+    - off
+  react/jsx-indent-props:
+    - error
+    - tab
+  react/jsx-indent:
+    - error
+    - tab
+
+  # Single quotes is the standard
+  quotes:
+    - error
+    - single
+  
+  # Doesn't work
+  jsx-quotes:
+    - error
+    - prefer-single
+
+  # Turn off errors on long lines
+  max-len:
+    - off
+
+  # Turn off semi colons
+  semi:
+    - error
+    - never
+  
+  # Turn off unnecessary commas for last list items
+  comma-dangle:
+    - error
+    - never
+
+  no-use-before-define:
+    - off
+
+  # Let us prefix with underscore if we want to
+  no-underscore-dangle:
+    - off
+
+  array-bracket-spacing:
+    - off
