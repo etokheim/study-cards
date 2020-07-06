@@ -5,6 +5,7 @@ import React from 'react'
 import { Animated, StyleSheet, View } from 'react-native'
 import { NavigationContainer } from '@react-navigation/native'
 import HomeStack from './routes/HomeStack'
+import StatusBar from './components/StatusBar'
 
 // Instruct SplashScreen not to hide yet, we want to do this manually
 SplashScreen.preventAutoHide()
@@ -112,6 +113,7 @@ function AnimatedSplashScreen({ children, image }) {
 function MainScreen() {
 	return (
 		<NavigationContainer>
+			<StatusBar />
 			<HomeStack />
 		</NavigationContainer>
 	)
