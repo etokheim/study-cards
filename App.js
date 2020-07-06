@@ -5,6 +5,8 @@ import React from 'react'
 import {
 	Animated, Button, StyleSheet, Text, View
 } from 'react-native'
+import { NavigationContainer } from '@react-navigation/native'
+import { createStackNavigator } from '@react-navigation/stack'
 
 // Instruct SplashScreen not to hide yet, we want to do this manually
 SplashScreen.preventAutoHide()
@@ -109,27 +111,49 @@ function AnimatedSplashScreen({ children, image }) {
 	)
 }
 
+function StackScreen() {
+	return (
+		<View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+			<Text>Stack screen</Text>
+		</View>
+	)
+}
+
+function HomeScreen({ navigation }) {
+	return (
+		<View style={{ }}>
+			<Text style={{ fontSize: 48 }}>Good morning, Erling</Text>
+			<View
+				style={{ marginTop: 32, height: 180, backgroundColor: 'white' }}
+			>
+				<Text
+					onPress={() => navigation.navigate('Stack')}
+					style={{ fontSize: 24 }}
+				>
+					Anatomy
+
+				</Text>
+				<Text>Not played through</Text>
+			</View>
+		</View>
+	)
+}
+
+const HomeStack = createStackNavigator()
+
+function HomeStackScreen() {
+	return (
+		<HomeStack.Navigator>
+			<HomeStack.Screen name='Home' component={HomeScreen} />
+			<HomeStack.Screen name='Stack' component={StackScreen} />
+		</HomeStack.Navigator>
+	)
+}
+
 function MainScreen() {
 	return (
-		<View
-			style={{
-				flex: 1,
-				backgroundColor: 'plum',
-				alignItems: 'center',
-				justifyContent: 'center'
-			}}
-		>
-			<Text
-				style={{
-					color: 'black',
-					fontSize: 30,
-					marginBottom: 15,
-					fontWeight: 'bold'
-				}}
-			>
-				Pretty Cool!
-			</Text>
-			<Button title='Run Again' onPress={() => Updates.reload()} />
-		</View>
+		<NavigationContainer>
+			<HomeStackScreen />
+		</NavigationContainer>
 	)
 }
