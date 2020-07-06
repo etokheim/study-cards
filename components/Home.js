@@ -3,15 +3,16 @@ import {
 	PaperProvider, FAB, Card, Paragraph, TouchableRipple
 } from 'react-native-paper'
 import { Text, ScrollView } from 'react-native'
+import Header from './Header'
 
 export default function Home({ navigation }) {
 	const visible = true
 	return (
 		<>
 			<ScrollView>
-				<Text style={{ fontSize: 48 }}>Good morning, Erling</Text>
+				<Header text='Good morning, Erling' />
 				<Card
-					style={{ marginTop: 32, backgroundColor: 'white' }}
+					style={{ backgroundColor: 'white' }}
 				>
 					<TouchableRipple
 						rippleColor='rgba(0, 0, 0, .32)'

@@ -8,7 +8,7 @@ const Stack = createStackNavigator()
 
 export default function HomeStack() {
 	return (
-		<Stack.Navigator headerMode='screen'>
+		<Stack.Navigator headerMode='none'>
 			<Stack.Screen name='Home' component={Home} />
 			<Stack.Screen name='Deck' component={Deck} />
 			<Stack.Screen name='New Deck' component={NewDeck} />
