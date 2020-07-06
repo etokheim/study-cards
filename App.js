@@ -122,6 +122,14 @@ function StackScreen() {
 	)
 }
 
+function NewDeck() {
+	return (
+		<View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+			<Text>Create a new deck</Text>
+		</View>
+	)
+}
+
 function HomeScreen({ navigation }) {
 	const visible = true
 	return (
@@ -170,6 +178,7 @@ function HomeStackScreen() {
 		<HomeStack.Navigator headerMode='screen'>
 			<HomeStack.Screen name='Home' component={HomeScreen} />
 			<HomeStack.Screen name='Stack' component={StackScreen} />
+			<HomeStack.Screen name='New Deck' component={NewDeck} />
 		</HomeStack.Navigator>
 	)
 }
