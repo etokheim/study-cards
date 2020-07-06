@@ -3,10 +3,13 @@ import { Asset } from 'expo-asset'
 import Constants from 'expo-constants'
 import React from 'react'
 import {
-	Animated, Button, StyleSheet, Text, View
+	Animated, Button, StyleSheet, Text, View, ScrollView
 } from 'react-native'
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
+import {
+	PaperProvider, FAB, Card, Paragraph, TouchableRipple
+} from 'react-native-paper'
 
 // Instruct SplashScreen not to hide yet, we want to do this manually
 SplashScreen.preventAutoHide()
@@ -120,22 +123,43 @@ function StackScreen() {
 }
 
 function HomeScreen({ navigation }) {
+	const visible = true
 	return (
-		<View style={{ }}>
-			<Text style={{ fontSize: 48 }}>Good morning, Erling</Text>
-			<View
-				style={{ marginTop: 32, height: 180, backgroundColor: 'white' }}
-			>
-				<Text
-					onPress={() => navigation.navigate('Stack')}
-					style={{ fontSize: 24 }}
+		<>
+			<ScrollView style={{ }}>
+				<Text style={{ fontSize: 48 }}>Good morning, Erling</Text>
+				<Card
+					style={{ marginTop: 32, backgroundColor: 'white' }}
 				>
-					Anatomy
-
-				</Text>
-				<Text>Not played through</Text>
-			</View>
-		</View>
+					<TouchableRipple
+						rippleColor='rgba(0, 0, 0, .32)'
+						onPress={() => navigation.navigate('Stack')}
+						style={{
+							height: 180
+						}}
+					>
+						<>
+							<Card.Title title='Anatomy' />
+							<Card.Content>
+								<Paragraph>Not played through</Paragraph>
+							</Card.Content>
+						</>
+					</TouchableRipple>
+				</Card>
+			</ScrollView>
+			<FAB
+				icon='plus'
+				label='Add new deck'
+				onPress={() => { navigation.navigate('New Deck') }}
+				visible={visible}
+				style={{
+					width: 180,
+					marginBottom: 32,
+					marginLeft: 'auto',
+					marginRight: 32
+				}}
+			/>
+		</>
 	)
 }
 
@@ -143,7 +167,7 @@ const HomeStack = createStackNavigator()
 
 function HomeStackScreen() {
 	return (
-		<HomeStack.Navigator>
+		<HomeStack.Navigator headerMode='screen'>
 			<HomeStack.Screen name='Home' component={HomeScreen} />
 			<HomeStack.Screen name='Stack' component={StackScreen} />
 		</HomeStack.Navigator>
