@@ -2,14 +2,9 @@ import { AppLoading, SplashScreen, Updates } from 'expo'
 import { Asset } from 'expo-asset'
 import Constants from 'expo-constants'
 import React from 'react'
-import {
-	Animated, Button, StyleSheet, Text, View, ScrollView
-} from 'react-native'
+import { Animated, StyleSheet, View } from 'react-native'
 import { NavigationContainer } from '@react-navigation/native'
-import { createStackNavigator } from '@react-navigation/stack'
-import {
-	PaperProvider, FAB, Card, Paragraph, TouchableRipple
-} from 'react-native-paper'
+import HomeStack from './routes/HomeStack'
 
 // Instruct SplashScreen not to hide yet, we want to do this manually
 SplashScreen.preventAutoHide()
@@ -114,79 +109,10 @@ function AnimatedSplashScreen({ children, image }) {
 	)
 }
 
-function StackScreen() {
-	return (
-		<View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-			<Text>Stack screen</Text>
-		</View>
-	)
-}
-
-function NewDeck() {
-	return (
-		<View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-			<Text>Create a new deck</Text>
-		</View>
-	)
-}
-
-function HomeScreen({ navigation }) {
-	const visible = true
-	return (
-		<>
-			<ScrollView style={{ }}>
-				<Text style={{ fontSize: 48 }}>Good morning, Erling</Text>
-				<Card
-					style={{ marginTop: 32, backgroundColor: 'white' }}
-				>
-					<TouchableRipple
-						rippleColor='rgba(0, 0, 0, .32)'
-						onPress={() => navigation.navigate('Stack')}
-						style={{
-							height: 180
-						}}
-					>
-						<>
-							<Card.Title title='Anatomy' />
-							<Card.Content>
-								<Paragraph>Not played through</Paragraph>
-							</Card.Content>
-						</>
-					</TouchableRipple>
-				</Card>
-			</ScrollView>
-			<FAB
-				icon='plus'
-				label='Add new deck'
-				onPress={() => { navigation.navigate('New Deck') }}
-				visible={visible}
-				style={{
-					width: 180,
-					marginBottom: 32,
-					marginLeft: 'auto',
-					marginRight: 32
-				}}
-			/>
-		</>
-	)
-}
-
-const HomeStack = createStackNavigator()
-
-function HomeStackScreen() {
-	return (
-		<HomeStack.Navigator headerMode='screen'>
-			<HomeStack.Screen name='Home' component={HomeScreen} />
-			<HomeStack.Screen name='Stack' component={StackScreen} />
-			<HomeStack.Screen name='New Deck' component={NewDeck} />
-		</HomeStack.Navigator>
-	)
-}
-
 function MainScreen() {
 	return (
 		<NavigationContainer>
-			<HomeStackScreen />
+			<HomeStack />
 		</NavigationContainer>
 	)
 }
