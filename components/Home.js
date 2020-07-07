@@ -33,9 +33,9 @@ export default connect(mapStateToProps)(class Home extends Component {
 					visible={visible}
 					style={{
 						width: 180,
-						marginBottom: 32,
-						marginLeft: 'auto',
-						marginRight: 32
+						bottom: 32,
+						right: 32,
+						position: 'absolute'
 					}}
 				/>
 			</>
