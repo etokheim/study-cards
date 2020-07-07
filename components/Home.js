@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import Header from './Header'
 import toArray from '../helpers/toArray'
 import DeckItem from './DeckItem'
-import { toggleAppbar } from '../actions/appbar'
+import { toggleAppbar, selectItem, deselectItem } from '../actions/appbar'
 
 const mapStateToProps = ({ decks, liftNavigation, appbar }) => { return { decks, liftNavigation, appbar } }
 
@@ -19,22 +19,24 @@ export default connect(mapStateToProps)(class Home extends Component {
 
 	handleLongPress = (id) => {
 		const { selected } = this.state
-		const { appbar } = this.props
+		const { appbar, dispatch } = this.props
 
 		// Toggle selected state
 		if(selected[id]) {
 			delete selected[id]
+			dispatch(deselectItem(id))
 		} else {
 			selected[id] = true
+			dispatch(selectItem(id))
 		}
 
 		// Toggle appbar visibility
 		const selectedLength = toArray(selected).length
 
 		if(selectedLength > 0 && !appbar.visible) {
-			this.props.dispatch(toggleAppbar(true))
+			dispatch(toggleAppbar(true))
 		} else if(selectedLength === 0) {
-			this.props.dispatch(toggleAppbar(false))
+			dispatch(toggleAppbar(false))
 		}
 
 		this.setState({
