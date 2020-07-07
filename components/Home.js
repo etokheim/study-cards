@@ -1,7 +1,10 @@
 import React, { Component } from 'react'
+import { PaperProvider, FAB } from 'react-native-paper'
 import { Text, ScrollView } from 'react-native'
 import { connect } from 'react-redux'
 import Header from './Header'
+import toArray from '../helpers/toArray'
+import DeckItem from './DeckItem'
 
 const mapStateToProps = ({ decks }) => { return { decks } }
 
@@ -11,44 +14,31 @@ export default connect(mapStateToProps)(class Home extends Component {
 	}
 
 	render() {
-	const visible = true
+		const visible = true
 		const { navigation, decks } = this.props
-	return (
-		<>
-			<ScrollView>
-				<Header text='Good morning, Erling' />
-				<Card
-					style={{ backgroundColor: 'white' }}
-				>
-					<TouchableRipple
-						rippleColor='rgba(0, 0, 0, .32)'
-						onPress={() => navigation.navigate('Deck')}
-						style={{
-							height: 180
-						}}
-					>
-						<>
-							<Card.Title title='Anatomy' />
-							<Card.Content>
-								<Paragraph>Not played through</Paragraph>
-							</Card.Content>
-						</>
-					</TouchableRipple>
-				</Card>
-			</ScrollView>
-			<FAB
-				icon='plus'
-				label='Add new deck'
-				onPress={() => { navigation.navigate('New Deck') }}
-				visible={visible}
-				style={{
-					width: 180,
-					marginBottom: 32,
-					marginLeft: 'auto',
-					marginRight: 32
-				}}
-			/>
-		</>
-	)
-}
+		return (
+			<>
+				<ScrollView>
+					<Header text='Good morning, Erling' />
+					{
+						toArray(decks).map((deck) => (
+							<DeckItem deck={ deck } navigation={ navigation } key={ deck.id } />
+						))
+					}
+				</ScrollView>
+				<FAB
+					icon='plus'
+					label='Add new deck'
+					onPress={() => { navigation.navigate('New Deck') }}
+					visible={visible}
+					style={{
+						width: 180,
+						marginBottom: 32,
+						marginLeft: 'auto',
+						marginRight: 32
+					}}
+				/>
+			</>
+		)
+	}
 })
