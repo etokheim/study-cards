@@ -1,11 +1,13 @@
 import { AppLoading, SplashScreen, Updates } from 'expo'
 import { Asset } from 'expo-asset'
 import Constants from 'expo-constants'
-import React from 'react'
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { Animated, StyleSheet, View } from 'react-native'
 import { NavigationContainer } from '@react-navigation/native'
 import { Provider } from 'react-redux'
 import { createStore } from 'redux'
+import { PaperProvider, FAB } from 'react-native-paper'
 import HomeStack from './routes/HomeStack'
 import StatusBar from './components/StatusBar'
 import reducer from './reducers'
@@ -116,13 +118,45 @@ function AnimatedSplashScreen({ children, image }) {
 
 const store = createStore(reducer, middleware)
 
-function MainScreen() {
-	return (
-		<Provider store={store}>
-			<NavigationContainer>
-				<StatusBar />
-				<HomeStack />
-			</NavigationContainer>
-		</Provider>
-	)
+
+class MainScreen extends Component {
+	static propTypes = {
+		prop: PropTypes
+	}
+
+	state = {
+		navigation: null
+	}
+
+	liftNavigation = (navigation) => {
+		this.setState({
+			navigation
+		})
+	}
+
+	render() {
+		const { FabVisible } = this.props
+		const { navigation } = this.state
+		return (
+			<Provider store={store}>
+				<NavigationContainer>
+					<StatusBar />
+					{ console.log('App:', this.liftNavigation) }
+					<HomeStack liftNavigation={this.liftNavigation} />
+				</NavigationContainer>
+				<FAB
+					icon='plus'
+					label='Add new deck'
+					onPress={() => { navigation.navigate('New Deck') }}
+					visible={ FabVisible }
+					style={{
+						width: 180,
+						bottom: 32,
+						right: 32,
+						position: 'absolute'
+					}}
+				/>
+			</Provider>
+		)
+	}
 }
