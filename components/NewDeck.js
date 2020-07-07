@@ -3,6 +3,7 @@ import { View, Text } from 'react-native'
 import { TextInput, HelperText, Button } from 'react-native-paper'
 import Header from './Header'
 import { handleNewDeck } from '../actions/decks'
+import { updateFab } from '../actions/fab'
 import { connect } from 'react-redux'
 
 const mapStateToProps = ({ decks }) => { return { decks } }
@@ -22,6 +23,17 @@ export default connect(mapStateToProps)(class NewDeck extends Component {
 		const { deckName } = this.state
 
 		this.props.dispatch(handleNewDeck(deckName))
+	}
+
+	componentDidMount() {
+		this._unsubscribe = this.props.navigation.addListener('focus', () => {
+			this.props.dispatch(updateFab(false))
+		});
+
+	}
+
+	componentWillUnmount() {
+		this._unsubscribe();
 	}
 
 	render() {
