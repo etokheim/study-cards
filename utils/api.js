@@ -8,13 +8,17 @@ export function addDeck(deck) {
 	}))
 }
 
-export async function removeDeck(id) {
+export async function removeDeck(ids) {
 	let decks = await AsyncStorage.getItem(DECK_STORAGE_KEY)
 
 	decks = JSON.parse(decks)
-	decks[id] = undefined
-	delete decks[id]
-	AsyncStorage.setItem(DECK_STORAGE_KEY, JSON.stringify(decks))
+
+	ids.forEach((id) => {
+		decks[id] = undefined
+		delete decks[id]
+	})
+
+	const returnData = await AsyncStorage.setItem(DECK_STORAGE_KEY, JSON.stringify(decks))
 
 	return decks
 }
