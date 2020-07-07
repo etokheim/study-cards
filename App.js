@@ -1,17 +1,15 @@
 import { AppLoading, SplashScreen, Updates } from 'expo'
 import { Asset } from 'expo-asset'
 import Constants from 'expo-constants'
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
+import React from 'react'
 import { Animated, StyleSheet, View } from 'react-native'
-import { NavigationContainer } from '@react-navigation/native'
 import { Provider } from 'react-redux'
 import { createStore } from 'redux'
-import { PaperProvider, FAB } from 'react-native-paper'
-import HomeStack from './routes/HomeStack'
-import StatusBar from './components/StatusBar'
+import Main from './components/Main'
 import reducer from './reducers'
 import middleware from './middleware'
+
+const store = createStore(reducer, middleware)
 
 // Instruct SplashScreen not to hide yet, we want to do this manually
 SplashScreen.preventAutoHide()
@@ -19,7 +17,9 @@ SplashScreen.preventAutoHide()
 export default function App() {
 	return (
 		<AnimatedAppLoader image={{ uri: Constants.manifest.splash.image }}>
-			<MainScreen />
+			<Provider store={store}>
+				<Main />
+			</Provider>
 		</AnimatedAppLoader>
 	)
 }
@@ -114,49 +114,4 @@ function AnimatedSplashScreen({ children, image }) {
 			)}
 		</View>
 	)
-}
-
-const store = createStore(reducer, middleware)
-
-
-class MainScreen extends Component {
-	static propTypes = {
-		prop: PropTypes
-	}
-
-	state = {
-		navigation: null
-	}
-
-	liftNavigation = (navigation) => {
-		this.setState({
-			navigation
-		})
-	}
-
-	render() {
-		const { FabVisible } = this.props
-		const { navigation } = this.state
-		return (
-			<Provider store={store}>
-				<NavigationContainer>
-					<StatusBar />
-					{ console.log('App:', this.liftNavigation) }
-					<HomeStack liftNavigation={this.liftNavigation} />
-				</NavigationContainer>
-				<FAB
-					icon='plus'
-					label='Add new deck'
-					onPress={() => { navigation.navigate('New Deck') }}
-					visible={ FabVisible }
-					style={{
-						width: 180,
-						bottom: 32,
-						right: 32,
-						position: 'absolute'
-					}}
-				/>
-			</Provider>
-		)
-	}
 }
