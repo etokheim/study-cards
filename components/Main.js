@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { NavigationContainer } from '@react-navigation/native'
 import { connect } from 'react-redux'
-import { PaperProvider, FAB } from 'react-native-paper'
+import { PaperProvider, FAB, Appbar } from 'react-native-paper'
 import PropTypes from 'prop-types'
 import HomeStack from '../routes/HomeStack'
 import StatusBar from './StatusBar'
@@ -9,11 +9,11 @@ import { updateFab } from '../actions/fab'
 import { receiveDecks } from '../actions/decks'
 import { getAllDecks } from '../utils/api'
 
-const mapStateToProps = ({ decks, liftNavigation, fab }) => { return { decks, liftNavigation, fab } }
+const mapStateToProps = ({ decks, liftNavigation, fab, appbar }) => { return { decks, liftNavigation, fab, appbar } }
 
 export default connect(mapStateToProps)(class Main extends Component {
 	static propTypes = {
-		prop: PropTypes
+		// prop: PropTypes
 	}
 
 	state = {
@@ -47,7 +47,7 @@ export default connect(mapStateToProps)(class Main extends Component {
 	}
 
 	render() {
-		const { fab } = this.props
+		const { fab, appbar } = this.props
 		const { navigation } = this.state
 		return (
 			<>
@@ -62,11 +62,25 @@ export default connect(mapStateToProps)(class Main extends Component {
 					visible={ fab.visible }
 					style={{
 						width: 180,
-						bottom: 32,
+						// Add appbar height if it's visible
+						bottom: appbar.visible ? 56 + 32 : 32,
 						right: 32,
 						position: 'absolute'
 					}}
 				/>
+				 <Appbar style={{
+					 position: 'absolute',
+					 bottom: appbar.visible ? 0 : -56,
+					 transition: '250ms bottom ease-out',
+					 left: 0,
+					 right: 0
+				 }}>
+					<Appbar.Content title={ `${appbar.selectedLength} decks`} />
+					<Appbar.Action
+						icon="delete"
+						onPress={() => console.log('Pressed delete')}
+					/>
+				</Appbar>
 			</>
 		)
 	}
