@@ -75,7 +75,7 @@ export default connect(mapStateToProps)(class Main extends Component {
 					 left: 0,
 					 right: 0
 				 }}>
-					<Appbar.Content title={ `${appbar.selectedLength} decks`} />
+					<Appbar.Content title={ `${appbar.selected.length} decks`} />
 					<Appbar.Action
 						icon="delete"
 						onPress={() => console.log('Pressed delete')}
