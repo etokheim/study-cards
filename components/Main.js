@@ -6,7 +6,7 @@ import PropTypes from 'prop-types'
 import HomeStack from '../routes/HomeStack'
 import StatusBar from './StatusBar'
 import { updateFab } from '../actions/fab'
-import { receiveDecks } from '../actions/decks'
+import { receiveDecks, handleDeleteItems } from '../actions/decks'
 import { getAllDecks } from '../utils/api'
 
 const mapStateToProps = ({ decks, liftNavigation, fab, appbar }) => { return { decks, liftNavigation, fab, appbar } }
@@ -46,6 +46,12 @@ export default connect(mapStateToProps)(class Main extends Component {
 		this._unsubscribe();
 	}
 
+	handleDelete = () => {
+		const { appbar, dispatch } = this.props
+
+		dispatch(handleDeleteItems(appbar.selected))
+	}
+
 	render() {
 		const { fab, appbar } = this.props
 		const { navigation } = this.state
@@ -78,7 +84,7 @@ export default connect(mapStateToProps)(class Main extends Component {
 					<Appbar.Content title={ `${appbar.selected.length} decks`} />
 					<Appbar.Action
 						icon="delete"
-						onPress={() => console.log('Pressed delete')}
+						onPress={() => this.handleDelete()}
 					/>
 				</Appbar>
 			</>
