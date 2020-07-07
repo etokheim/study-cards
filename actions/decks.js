@@ -8,6 +8,7 @@ import * as api from '../utils/api'
 
 export const RECEIVE_DECKS = 'RECEIVE_DECKS'
 export const ADD_DECK = 'ADD_DECK'
+export const DELETE_DECKS = 'DELETE_DECKS'
 
 export function receiveDecks(decks) {
 	return {
@@ -35,5 +36,22 @@ export function handleNewDeck(deckName) {
 		api.addDeck(deck)
 
 		return deck
+	}
+}
+
+function deleteItems(deckIds) {
+	return {
+		type: DELETE_DECKS,
+		deckIds
+	}
+}
+
+export function handleDeleteItems(deckIds) {
+	return async (dispatch) => {
+		dispatch(deleteItems(deckIds))
+
+		api.removeDeck(deckIds)
+
+		return deckIds
 	}
 }
