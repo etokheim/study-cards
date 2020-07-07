@@ -4,8 +4,12 @@ import Constants from 'expo-constants'
 import React from 'react'
 import { Animated, StyleSheet, View } from 'react-native'
 import { NavigationContainer } from '@react-navigation/native'
+import { Provider } from 'react-redux'
+import { createStore } from 'redux'
 import HomeStack from './routes/HomeStack'
 import StatusBar from './components/StatusBar'
+import reducer from './reducers'
+import middleware from './middleware'
 
 // Instruct SplashScreen not to hide yet, we want to do this manually
 SplashScreen.preventAutoHide()
@@ -110,11 +114,15 @@ function AnimatedSplashScreen({ children, image }) {
 	)
 }
 
+const store = createStore(reducer, middleware)
+
 function MainScreen() {
 	return (
-		<NavigationContainer>
-			<StatusBar />
-			<HomeStack />
-		</NavigationContainer>
+		<Provider store={store}>
+			<NavigationContainer>
+				<StatusBar />
+				<HomeStack />
+			</NavigationContainer>
+		</Provider>
 	)
 }
