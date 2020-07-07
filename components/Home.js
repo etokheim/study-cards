@@ -1,12 +1,18 @@
-import React from 'react'
-import {
-	PaperProvider, FAB, Card, Paragraph, TouchableRipple
-} from 'react-native-paper'
+import React, { Component } from 'react'
 import { Text, ScrollView } from 'react-native'
+import { connect } from 'react-redux'
 import Header from './Header'
 
-export default function Home({ navigation }) {
+const mapStateToProps = ({ decks }) => { return { decks } }
+
+export default connect(mapStateToProps)(class Home extends Component {
+	state = {
+
+	}
+
+	render() {
 	const visible = true
+		const { navigation, decks } = this.props
 	return (
 		<>
 			<ScrollView>
@@ -45,3 +51,4 @@ export default function Home({ navigation }) {
 		</>
 	)
 }
+})
