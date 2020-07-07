@@ -4,6 +4,7 @@ import 'react-native-get-random-values'
 // Seems like uuid v > 3 doesn't work well with react-native-get-random-values.
 // For more information, check out this issue: https://github.com/uuidjs/uuid/issues/375
 import { v4 as uuid } from 'uuid'
+import * as api from '../utils/api'
 
 export const RECEIVE_DECKS = 'RECEIVE_DECKS'
 export const ADD_DECK = 'ADD_DECK'
@@ -23,13 +24,15 @@ export function newDeck(deck) {
 }
 
 export function handleNewDeck(deckName) {
-	return (dispatch) => {
+	return async (dispatch) => {
 		const deck = {
 			id: uuid(),
 			name: deckName
 		}
 
 		dispatch(newDeck(deck))
+
+		api.addDeck(deck)
 
 		return deck
 	}
