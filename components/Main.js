@@ -6,6 +6,8 @@ import PropTypes from 'prop-types'
 import HomeStack from '../routes/HomeStack'
 import StatusBar from './StatusBar'
 import { updateFab } from '../actions/fab'
+import { receiveDecks } from '../actions/decks'
+import { getAllDecks } from '../utils/api'
 
 const mapStateToProps = ({ decks, liftNavigation, fab }) => { return { decks, liftNavigation, fab } }
 
@@ -24,7 +26,7 @@ export default connect(mapStateToProps)(class Main extends Component {
 		})
 	}
 
-	componentDidMount() {
+	async componentDidMount() {
 		// Display FAB on mount
 		this.props.dispatch(updateFab(true))
 
@@ -36,6 +38,8 @@ export default connect(mapStateToProps)(class Main extends Component {
 				this.props.dispatch(updateFab(true))
 			});
 		}, 500)
+
+		this.props.dispatch(receiveDecks(await getAllDecks()))
 	}
 
 	componentWillUnmount() {

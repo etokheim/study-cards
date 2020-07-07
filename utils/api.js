@@ -18,3 +18,10 @@ export async function removeDeck(id) {
 
 	return decks
 }
+
+export async function getAllDecks() {
+	let decks = await AsyncStorage.getItem(DECK_STORAGE_KEY)
+	decks = JSON.parse(decks)
+
+	return decks
+}
