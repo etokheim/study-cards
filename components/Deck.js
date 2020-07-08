@@ -59,7 +59,7 @@ export default connect(mapStateToProps)(({
 				<View style={{ paddingTop: windowHeight - 64 }}>
 					{
 						toArray(deck.cards).map((card, index) => (
-							<CardItem key={card.id} card={card} questionPadding={questionPadding} cardNumber={index + 1} numberOfCards={numberOfCards} />
+							<CardItem key={card.id} card={card} questionPadding={questionPadding} cardNumber={index + 1} numberOfCards={numberOfCards} deckId={deck.id} />
 						))
 					}
 				</View>
