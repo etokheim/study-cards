@@ -1,16 +1,14 @@
 import React from 'react'
 import { Text, View } from 'react-native'
 
-export default function Header(props) {
+export default function Header({ noMargin, text, backButton }) {
 	return (
-		<View style={{ marginTop: 128, marginBottom: 32 }}>
+		<View style={{ marginTop: noMargin ? 16 : 128, marginBottom: 32 }}>
 			<Text style={{ fontSize: 48 }}>
-				{ props.backButton
+				{ backButton
 					? '< '
 					: ''}
-				{ props.text
-					? props.text
-					: 'Header'}
+				{ text || 'Header'}
 			</Text>
 		</View>
 	)

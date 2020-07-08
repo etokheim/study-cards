@@ -29,7 +29,7 @@ export default connect(mapStateToProps)(({
 
 	return (
 		<ScrollView>
-			<Header backButton={false} text={deck.name} />
+			<Header backButton={false} text={deck.name} noMargin />
 			<Button onPress={() => navigation.navigate('New Card', { deckId: deck.id })}>+ New card</Button>
 			{/* TODO: Maybe add a delete button here as well */}
 			{
