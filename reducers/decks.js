@@ -1,5 +1,5 @@
 import {
-	RECEIVE_DECKS, ADD_DECK, DELETE_DECKS, ADD_CARD
+	RECEIVE_DECKS, ADD_DECK, DELETE_DECKS, ADD_CARD, ANSWER_CARD
 } from '../actions/decks'
 
 export default function decks(state = {}, action) {
@@ -38,6 +38,20 @@ export default function decks(state = {}, action) {
 						[action.card.id]: {
 							...state[action.deckId].cards,
 							...action.card
+						}
+					}
+				}
+			}
+		case ANSWER_CARD:
+			return {
+				...state,
+				[action.deckId]: {
+					...state[action.deckId],
+					cards: {
+						...state[action.deckId].cards,
+						[action.cardId]: {
+							...state[action.deckId].cards[action.cardId],
+							answers: state[action.deckId].cards[action.cardId].answers.concat(action.answer)
 						}
 					}
 				}

@@ -10,6 +10,7 @@ export const RECEIVE_DECKS = 'RECEIVE_DECKS'
 export const ADD_CARD = 'ADD_CARD'
 export const ADD_DECK = 'ADD_DECK'
 export const DELETE_DECKS = 'DELETE_DECKS'
+export const ANSWER_CARD = 'ANSWER_CARD'
 
 export function receiveDecks(decks) {
 	return {
@@ -71,7 +72,8 @@ export function handleAddCard(question, answer, deckId) {
 		const card = {
 			id: uuid(),
 			question,
-			answer
+			answer,
+			answers: []
 		}
 
 		dispatch(addCard(card, deckId))
@@ -79,5 +81,31 @@ export function handleAddCard(question, answer, deckId) {
 		api.addCard(card, deckId)
 
 		return card
+	}
+}
+
+function answerCard(cardId, deckId, answer) {
+	return {
+		type: ANSWER_CARD,
+		cardId,
+		deckId,
+		answer
+	}
+}
+
+export function handleAnswerCard(cardId, deckId, option) {
+	return async (dispatch) => {
+		const answer = {
+			id: uuid(),
+			option,
+			timestamp: Date.now()
+		}
+
+		dispatch(answerCard(cardId, deckId, answer))
+
+		// TODO: Send to the API
+		// api.addCard(card, deckId)
+
+		return answer
 	}
 }
