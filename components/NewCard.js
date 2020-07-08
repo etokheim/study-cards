@@ -7,7 +7,7 @@ import { handleAddCard } from '../actions/decks'
 
 const mapStateToProps = ({ }) => ({ })
 
-export default connect(mapStateToProps)(({ dispatch, route }) => {
+export default connect(mapStateToProps)(({ dispatch, route, navigation }) => {
 	const { deckId } = route.params
 
 	// Declare new state variables
@@ -19,6 +19,7 @@ export default connect(mapStateToProps)(({ dispatch, route }) => {
 		console.log('answer:', answer)
 
 		dispatch(handleAddCard(question, answer, deckId))
+		navigation.navigate('Deck')
 	}
 
 	return (
