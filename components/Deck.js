@@ -28,8 +28,7 @@ export default connect(mapStateToProps)(({
 
 	return (
 		<View>
-			<Header backButton={false} text='Anatomy' />
-			<Text>{deck.name}</Text>
+			<Header backButton={false} text={deck.name} />
 			<Button onPress={() => navigation.navigate('New Card', { deckId: deck.id })}>+ New card</Button>
 			<Text>{ JSON.stringify(deck) }</Text>
 			{
