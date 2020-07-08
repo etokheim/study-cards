@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { Card, Button, Paragraph } from 'react-native-paper'
-import { Text, Animated, Easing } from 'react-native'
+import { Dimensions, StyleSheet } from 'react-native'
 import FlipCard from 'react-native-flip-card'
 
-function CardItem({ card }) {
+function CardItem({ card, questionPadding = 80 }) {
 	const [flipped, setFlipped] = useState(false)
+	const windowHeight = Dimensions.get('window').height
 
 	return (
 		<FlipCard
@@ -15,17 +16,18 @@ function CardItem({ card }) {
 			flip={flipped}
 		>
 			{/* Face Side */}
-			<Card style={{ height: 200, marginBottom: 16 }}>
-				<Card.Content>
+			<Card style={[styles.card, { height: windowHeight - questionPadding }]}>
+				<Card.Content style={styles.cardContent}>
+					<Paragraph>{ questionPadding }</Paragraph>
 					<Paragraph>{ card.question }</Paragraph>
-					<Button onPress={() => setFlipped(true)}>Answer</Button>
+					<Button onPress={() => setFlipped(true)} style={styles.button}>Answer</Button>
 				</Card.Content>
 			</Card>
 			{/* Back Side */}
-			<Card style={{ height: 200, marginBottom: 16 }}>
-				<Card.Content>
+			<Card style={[styles.card, { height: windowHeight - questionPadding }]}>
+				<Card.Content style={styles.cardContent}>
 					<Paragraph>{ card.answer }</Paragraph>
-					<Button onPress={() => setFlipped(false)}>Back</Button>
+					<Button onPress={() => setFlipped(false)} style={styles.button}>Back</Button>
 				</Card.Content>
 			</Card>
 		</FlipCard>
@@ -35,5 +37,21 @@ function CardItem({ card }) {
 CardItem.propTypes = {
 
 }
+
+const styles = StyleSheet.create({
+	button: {
+		position: 'absolute',
+		bottom: 16,
+		right: 16
+	},
+
+	cardContent: {
+		height: '100%'
+	},
+
+	card: {
+		marginBottom: 128
+	}
+})
 
 export default CardItem
