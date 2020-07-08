@@ -29,3 +29,9 @@ export async function getAllDecks() {
 
 	return decks
 }
+
+export async function removeAllDecks() {
+	await AsyncStorage.setItem(DECK_STORAGE_KEY, JSON.stringify({}))
+
+	return {}
+}
