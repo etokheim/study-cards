@@ -6,7 +6,7 @@ import toArray from '../helpers/toArray'
 import DeckItem from './DeckItem'
 import { toggleAppbar, selectItem, deselectItem } from '../actions/appbar'
 
-const mapStateToProps = ({ decks, liftNavigation, appbar }) => { return { decks, liftNavigation, appbar } }
+const mapStateToProps = ({ decks, liftNavigation, appbar, user }) => { return { decks, liftNavigation, appbar, user } }
 
 export default connect(mapStateToProps)(class Home extends Component {
 	state = {
@@ -16,7 +16,13 @@ export default connect(mapStateToProps)(class Home extends Component {
 	}
 
 	componentDidMount() {
-		this.props.route.params.liftNavigation(this.props.navigation)
+		const { user, route, navigation } = this.props
+
+		route.params.liftNavigation(navigation)
+		
+		if(!user) {
+			navigation.navigate('Register')
+		}
 	}
 
 	handleLongPress = (id) => {
@@ -47,7 +53,7 @@ export default connect(mapStateToProps)(class Home extends Component {
 	}
 
 	render() {
-		const { navigation, decks } = this.props
+		const { navigation, decks, user } = this.props
 		const { selected } = this.state
 		return (
 			<>
