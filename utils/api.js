@@ -73,3 +73,8 @@ export async function removeAllDecks() {
 
 	return {}
 }
+
+export function reset() {
+	removeAllDecks()
+	removeUser()
+}
