@@ -13,8 +13,7 @@ export default function decks(state = {}, action) {
 			return {
 				...state,
 				[action.deck.id]: {
-					...action.deck,
-					cards: {}
+					...action.deck
 				}
 			}
 		case DELETE_DECKS:

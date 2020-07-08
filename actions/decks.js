@@ -29,7 +29,8 @@ export function handleAddDeck(deckName) {
 	return async (dispatch) => {
 		const deck = {
 			id: uuid(),
-			name: deckName
+			name: deckName,
+			cards: {}
 		}
 
 		dispatch(addDeck(deck))
