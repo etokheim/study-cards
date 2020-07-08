@@ -68,13 +68,14 @@ function addCard(card, deckId) {
 export function handleAddCard(question, answer, deckId) {
 	return async (dispatch) => {
 		const card = {
+			id: uuid(),
 			question,
 			answer
 		}
 
 		dispatch(addCard(card, deckId))
 
-		// api.addCard(card)
+		api.addCard(card, deckId)
 
 		return card
 	}
