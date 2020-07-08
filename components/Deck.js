@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { View, Text } from 'react-native'
 import { connect } from 'react-redux'
+import { Button } from 'react-native-paper'
 import Header from './Header'
 import { updateFab } from '../actions/fab'
 
@@ -21,6 +22,7 @@ export default connect()(({ navigation, dispatch }) => {
 		<View>
 			<Header backButton={false} text='Anatomy' />
 			<Text>Deck screen</Text>
+			<Button onPress={() => navigation.navigate('New Card')}>+ New card</Button>
 		</View>
 	)
 })

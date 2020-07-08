@@ -10,6 +10,8 @@ const mapStateToProps = ({ decks, liftNavigation, appbar }) => { return { decks,
 
 export default connect(mapStateToProps)(class Home extends Component {
 	state = {
+		// TODO: Consider consolidating the state's selected object with the appbar's
+		// selected object (Redux)
 		selected: {}
 	}
 
