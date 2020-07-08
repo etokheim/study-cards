@@ -13,7 +13,7 @@ export default function DeckItem({
 			<TouchableRipple
 				rippleColor='rgba(0, 0, 0, .32)'
 				onLongPress={() => onLongPress(deck.id)}
-				onPress={() => navigation.navigate('Deck', { deck })}
+				onPress={() => navigation.navigate('Deck', { deckId: deck.id })}
 				style={{
 					height: 180
 				}}
