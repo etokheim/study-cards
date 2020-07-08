@@ -9,7 +9,7 @@ import { updateFab } from '../actions/fab'
 import { receiveDecks, handleDeleteItems } from '../actions/decks'
 import { getAllDecks } from '../utils/api'
 
-const mapStateToProps = ({ decks, liftNavigation, fab, appbar }) => { return { decks, liftNavigation, fab, appbar } }
+const mapStateToProps = ({ decks, fab, appbar }) => { return { decks, fab, appbar } }
 
 export default connect(mapStateToProps)(class Main extends Component {
 	static propTypes = {
