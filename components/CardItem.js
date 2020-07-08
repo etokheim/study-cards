@@ -1,14 +1,25 @@
-import React from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { Card, Button } from 'react-native-paper'
-import { Text } from 'react-native'
+import { Text, Animated, Easing } from 'react-native'
+import FlipCard from 'react-native-flip-card'
 
 function CardItem({ card }) {
 	return (
-		<Card style={{ marginBottom: 16, height: 200 }}>
-			<Text>{ card.question }</Text>
-			<Text>{ card.answer }</Text>
-		</Card>
+		<FlipCard
+			flipHorizontal
+			flipVertical={false}
+			clickable
+		>
+			{/* Face Side */}
+			<Card style={{ height: 200, marginBottom: 16 }}>
+				<Text>{ card.question }</Text>
+			</Card>
+			{/* Back Side */}
+			<Card style={{ height: 200, marginBottom: 16 }}>
+				<Text>{ card.answer }</Text>
+			</Card>
+		</FlipCard>
 	)
 }
 
