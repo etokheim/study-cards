@@ -5,7 +5,7 @@ export default function Header({
 	noMargin, text, backButton, style, handleOnLayout
 }) {
 	return (
-		<View style={[{ marginTop: noMargin ? 16 : 128, marginBottom: 32 }, style]} onLayout={(event) => handleOnLayout(event)}>
+		<View style={[{ marginTop: noMargin ? 16 : 128, marginBottom: 32 }, style]} onLayout={handleOnLayout ? (event) => handleOnLayout(event) : false}>
 			<Text style={{ fontSize: 48 }}>
 				{ backButton
 					? '< '
