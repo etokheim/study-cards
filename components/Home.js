@@ -16,9 +16,13 @@ export default connect(mapStateToProps)(class Home extends Component {
 	}
 
 	componentDidMount() {
-		const { user, route, navigation } = this.props
+		const { route, navigation, user } = this.props
 
 		route.params.liftNavigation(navigation)
+	}
+
+	componentDidUpdate() {
+		const { user, navigation } = this.props
 		
 		if(!user.name) {
 			navigation.navigate('Register')
