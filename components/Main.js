@@ -17,14 +17,8 @@ export default connect(mapStateToProps)(class Main extends Component {
 		// prop: PropTypes
 	}
 
-	state = {
-		navigation: null
-	}
-
 	liftNavigation = (navigation) => {
-		this.setState({
-			navigation
-		})
+		this.navigation = navigation
 	}
 
 	async componentDidMount() {
@@ -34,7 +28,7 @@ export default connect(mapStateToProps)(class Main extends Component {
 		// TODO: Fix this hack
 		// Wait for the children to lift up their navigation object.
 		setTimeout(() => {
-			this._unsubscribe = this.state.navigation.addListener('focus', () => {
+			this._unsubscribe = this.navigation.addListener('focus', () => {
 				// Also display the FAB when the user navigates back to Main
 				this.props.dispatch(updateFab(true))
 			});
@@ -56,7 +50,7 @@ export default connect(mapStateToProps)(class Main extends Component {
 
 	render() {
 		const { fab, appbar } = this.props
-		const { navigation } = this.state
+		const { navigation } = this
 		return (
 			<>
 				<NavigationContainer>
