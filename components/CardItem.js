@@ -4,7 +4,9 @@ import { Card, Button, Paragraph } from 'react-native-paper'
 import { Dimensions, StyleSheet } from 'react-native'
 import FlipCard from 'react-native-flip-card'
 
-function CardItem({ card, questionPadding = 80 }) {
+function CardItem({
+	card, questionPadding = 80, cardNumber, numberOfCards
+}) {
 	const [flipped, setFlipped] = useState(false)
 	const windowHeight = Dimensions.get('window').height
 
@@ -21,6 +23,7 @@ function CardItem({ card, questionPadding = 80 }) {
 					<Paragraph>{ questionPadding }</Paragraph>
 					<Paragraph>{ card.question }</Paragraph>
 					<Button onPress={() => setFlipped(true)} style={styles.button}>Answer</Button>
+					<Paragraph style={styles.cardsCounter}>{`${cardNumber} / ${numberOfCards}`}</Paragraph>
 				</Card.Content>
 			</Card>
 			{/* Back Side */}
@@ -28,6 +31,7 @@ function CardItem({ card, questionPadding = 80 }) {
 				<Card.Content style={styles.cardContent}>
 					<Paragraph>{ card.answer }</Paragraph>
 					<Button onPress={() => setFlipped(false)} style={styles.button}>Back</Button>
+					<Paragraph style={styles.cardsCounter}>{`${cardNumber} / ${numberOfCards}`}</Paragraph>
 				</Card.Content>
 			</Card>
 		</FlipCard>
@@ -51,6 +55,13 @@ const styles = StyleSheet.create({
 
 	card: {
 		marginBottom: 128
+	},
+
+	cardsCounter: {
+		opacity: 0.5,
+		position: 'absolute',
+		left: 16,
+		bottom: 16
 	}
 })
 

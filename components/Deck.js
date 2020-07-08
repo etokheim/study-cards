@@ -18,6 +18,7 @@ export default connect(mapStateToProps)(({
 	const { deckId } = route.params
 	const deck = decks[deckId]
 	const windowHeight = Dimensions.get('window').height
+	const numberOfCards = toArray(deck.cards).length
 
 	// State
 	const [headerHeight, setHeaderHeight] = useState(60)
@@ -57,8 +58,8 @@ export default connect(mapStateToProps)(({
 			<ScrollView>
 				<View style={{ paddingTop: windowHeight - 64 }}>
 					{
-						toArray(deck.cards).map((card) => (
-							<CardItem key={card.id} card={card} questionPadding={questionPadding} />
+						toArray(deck.cards).map((card, index) => (
+							<CardItem key={card.id} card={card} questionPadding={questionPadding} cardNumber={index + 1} numberOfCards={numberOfCards} />
 						))
 					}
 				</View>
