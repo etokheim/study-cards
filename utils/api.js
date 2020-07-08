@@ -15,6 +15,11 @@ export async function getUser() {
 	return user
 }
 
+export async function removeUser() {
+	await AsyncStorage.setItem(USER_STORAGE_KEY, JSON.stringify({}))
+	return true
+}
+
 export function addDeck(deck) {
 	return AsyncStorage.mergeItem(DECK_STORAGE_KEY, JSON.stringify({
 		[deck.id]: deck
