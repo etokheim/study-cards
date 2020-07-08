@@ -17,21 +17,21 @@ export function receiveDecks(decks) {
 	}
 }
 
-export function newDeck(deck) {
+function addDeck(deck) {
 	return {
 		type: ADD_DECK,
 		deck
 	}
 }
 
-export function handleNewDeck(deckName) {
+export function handleAddDeck(deckName) {
 	return async (dispatch) => {
 		const deck = {
 			id: uuid(),
 			name: deckName
 		}
 
-		dispatch(newDeck(deck))
+		dispatch(addDeck(deck))
 
 		api.addDeck(deck)
 
