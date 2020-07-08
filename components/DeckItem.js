@@ -3,10 +3,9 @@ import {
 	Card, Paragraph, TouchableRipple
 } from 'react-native-paper'
 
-export default function DeckItem(props) {
-	const {
-		deck, navigation, onLongPress, selected
-	} = props
+export default function DeckItem({
+	deck, navigation, onLongPress, selected
+}) {
 	return (
 		<Card
 			style={{ marginBottom: 16, backgroundColor: selected ? 'green' : 'white' }}
@@ -14,7 +13,7 @@ export default function DeckItem(props) {
 			<TouchableRipple
 				rippleColor='rgba(0, 0, 0, .32)'
 				onLongPress={() => onLongPress(deck.id)}
-				onPress={() => navigation.navigate('Deck')}
+				onPress={() => navigation.navigate('Deck', { deck })}
 				style={{
 					height: 180
 				}}

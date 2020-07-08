@@ -1,9 +1,15 @@
 import React, { useState } from 'react'
-import { ScrollView, TextInput as Input } from 'react-native'
-import { TextInput, Button } from 'react-native-paper'
+import { ScrollView } from 'react-native'
+import { TextInput, Button, Paragraph } from 'react-native-paper'
+import { connect } from 'react-redux'
 import Header from './Header'
+import { handleAddCard } from '../actions/decks'
 
-export default function NewCard({ dispatch }) {
+const mapStateToProps = ({ }) => ({ })
+
+export default connect(mapStateToProps)(({ dispatch, route }) => {
+	const { deckId } = route.params
+
 	// Declare new state variables
 	const [question, setQuestion] = useState(0)
 	const [answer, setAnswer] = useState(0)
@@ -17,6 +23,7 @@ export default function NewCard({ dispatch }) {
 	return (
 		<ScrollView>
 			<Header backButton text='Create card' />
+			<Paragraph>{ deckId }</Paragraph>
 			<TextInput placeholder="What's ..." label='Question' onChangeText={(text) => setQuestion(text)} value={question} />
 			<TextInput
 				style={{
@@ -40,4 +47,4 @@ export default function NewCard({ dispatch }) {
 			</Button>
 		</ScrollView>
 	)
-}
+})

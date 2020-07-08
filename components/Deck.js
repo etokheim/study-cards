@@ -5,7 +5,11 @@ import { Button } from 'react-native-paper'
 import Header from './Header'
 import { updateFab } from '../actions/fab'
 
-export default connect()(({ navigation, dispatch }) => {
+const mapStateToProps = ({ }) => ({ })
+
+export default connect(mapStateToProps)(({ navigation, dispatch, route }) => {
+	const { deck } = route.params
+
 	let unsubscribe
 
 	useEffect(() => {
