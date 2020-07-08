@@ -5,6 +5,7 @@ import { Button } from 'react-native-paper'
 import Header from './Header'
 import { updateFab } from '../actions/fab'
 import toArray from '../helpers/toArray'
+import CardItem from './CardItem'
 
 const mapStateToProps = ({ decks }) => ({ decks })
 
@@ -32,10 +33,7 @@ export default connect(mapStateToProps)(({
 			<Button onPress={() => navigation.navigate('New Card', { deckId: deck.id })}>+ New card</Button>
 			{
 				toArray(deck.cards).map((card) => (
-					<View style={{ marginBottom: 16 }} key={card.id}>
-						<Text>{ card.question }</Text>
-						<Text>{ card.answer }</Text>
-					</View>
+					<CardItem key={card.id} card={card} />
 				))
 			}
 		</ScrollView>
