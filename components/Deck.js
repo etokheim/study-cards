@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { View, Text } from 'react-native'
+import { View, Text, ScrollView } from 'react-native'
 import { connect } from 'react-redux'
 import { Button } from 'react-native-paper'
 import Header from './Header'
@@ -27,7 +27,7 @@ export default connect(mapStateToProps)(({
 	})
 
 	return (
-		<View>
+		<ScrollView>
 			<Header backButton={false} text={deck.name} />
 			<Button onPress={() => navigation.navigate('New Card', { deckId: deck.id })}>+ New card</Button>
 			{
@@ -38,6 +38,6 @@ export default connect(mapStateToProps)(({
 					</View>
 				))
 			}
-		</View>
+		</ScrollView>
 	)
 })
