@@ -8,6 +8,26 @@ export function addDeck(deck) {
 	}))
 }
 
+export async function addCard(card, deckId) {
+	let decks = await AsyncStorage.getItem(DECK_STORAGE_KEY)
+
+	decks = JSON.parse(decks)
+
+	const deck = decks[deckId]
+
+	return AsyncStorage.mergeItem(DECK_STORAGE_KEY, JSON.stringify({
+		[deckId]: {
+			...deck,
+			cards: {
+				...deck.cards,
+				[card.id]: {
+					...card
+				}
+			}
+		}
+	}))
+}
+
 export async function removeDeck(ids) {
 	let decks = await AsyncStorage.getItem(DECK_STORAGE_KEY)
 
