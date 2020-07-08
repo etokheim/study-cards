@@ -31,6 +31,7 @@ export default connect(mapStateToProps)(({
 		<ScrollView>
 			<Header backButton={false} text={deck.name} />
 			<Button onPress={() => navigation.navigate('New Card', { deckId: deck.id })}>+ New card</Button>
+			{/* TODO: Maybe add a delete button here as well */}
 			{
 				toArray(deck.cards).map((card) => (
 					<CardItem key={card.id} card={card} />

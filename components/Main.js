@@ -17,6 +17,7 @@ export default connect(mapStateToProps)(class Main extends Component {
 		// prop: PropTypes
 	}
 
+	// TODO: Find a better way to get the navigation object
 	liftNavigation = (navigation) => {
 		this.navigation = navigation
 	}
