@@ -17,7 +17,8 @@ export default connect(mapStateToProps)(({ dispatch, route }) => {
 	const handleSubmit = () => {
 		console.log('question:', question)
 		console.log('answer:', answer)
-		// dispatch(handleNewCard(cardName))
+
+		dispatch(handleAddCard(question, answer, deckId))
 	}
 
 	return (
