@@ -2,10 +2,18 @@ import { v4 as uuid } from 'uuid'
 import * as api from '../utils/api'
 
 export const CREATE_USER = 'CREATE_USER'
+export const RECEIVE_USER = 'RECEIVE_USER'
 
 function createUser(user) {
 	return {
 		type: CREATE_USER,
+		user
+	}
+}
+
+export function receiveUser(user) {
+	return {
+		type: RECEIVE_USER,
 		user
 	}
 }
@@ -20,7 +28,7 @@ export function handleCreateUser(username) {
 
 		dispatch(createUser(user))
 
-		// api.createUser(user)
+		api.createUser(user)
 
 		return user
 	}

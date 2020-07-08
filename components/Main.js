@@ -7,8 +7,9 @@ import HomeStack from '../routes/HomeStack'
 import StatusBar from './StatusBar'
 import { updateFab } from '../actions/fab'
 import { receiveDecks, handleDeleteItems } from '../actions/decks'
+import { receiveUser } from '../actions/user'
 import { toggleAppbar } from '../actions/appbar'
-import { getAllDecks } from '../utils/api'
+import { getAllDecks, getUser } from '../utils/api'
 
 const mapStateToProps = ({ decks, fab, appbar }) => { return { decks, fab, appbar } }
 
@@ -23,19 +24,22 @@ export default connect(mapStateToProps)(class Main extends Component {
 	}
 
 	async componentDidMount() {
+		const { dispatch } = this.props
+
 		// Display FAB on mount
-		this.props.dispatch(updateFab(true))
+		dispatch(updateFab(true))
 
 		// TODO: Fix this hack
 		// Wait for the children to lift up their navigation object.
 		setTimeout(() => {
 			this._unsubscribe = this.navigation.addListener('focus', () => {
 				// Also display the FAB when the user navigates back to Main
-				this.props.dispatch(updateFab(true))
+				dispatch(updateFab(true))
 			});
 		}, 500)
 
-		this.props.dispatch(receiveDecks(await getAllDecks()))
+		dispatch(receiveUser(await getUser()))
+		dispatch(receiveDecks(await getAllDecks()))
 	}
 
 	componentWillUnmount() {

@@ -1,6 +1,19 @@
 import { AsyncStorage } from 'react-native'
 
+const USER_STORAGE_KEY = 'study-cards:user'
 const DECK_STORAGE_KEY = 'study-cards:decks'
+
+export function createUser(user) {
+	return AsyncStorage.mergeItem(USER_STORAGE_KEY, JSON.stringify(user))
+}
+
+export async function getUser() {
+	let user = await AsyncStorage.getItem(USER_STORAGE_KEY)
+
+	user = JSON.parse(user)
+
+	return user
+}
 
 export function addDeck(deck) {
 	return AsyncStorage.mergeItem(DECK_STORAGE_KEY, JSON.stringify({
