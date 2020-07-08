@@ -21,8 +21,10 @@ export default connect(mapStateToProps)(class NewDeck extends Component {
 
 	handleSubmit = () => {
 		const { deckName } = this.state
+		const { dispatch, navigation } = this.props
 
-		this.props.dispatch(handleAddDeck(deckName))
+		dispatch(handleAddDeck(deckName))
+		navigation.navigate('Home')
 	}
 
 	componentDidMount() {
