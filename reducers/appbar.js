@@ -16,7 +16,7 @@ export default function decks(state = { selected: [] }, action) {
 		case DESELECT_ITEM:
 			return {
 				...state,
-				selected: state.selected.filter((item) => action.id === item)
+				selected: state.selected.filter((item) => action.id !== item)
 			}
 		case DELETE_DECKS:
 			return {
