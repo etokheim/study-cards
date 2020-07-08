@@ -7,6 +7,7 @@ import { v4 as uuid } from 'uuid'
 import * as api from '../utils/api'
 
 export const RECEIVE_DECKS = 'RECEIVE_DECKS'
+export const ADD_CARD = 'ADD_CARD'
 export const ADD_DECK = 'ADD_DECK'
 export const DELETE_DECKS = 'DELETE_DECKS'
 
@@ -53,5 +54,28 @@ export function handleDeleteItems(deckIds) {
 		api.removeDeck(deckIds)
 
 		return deckIds
+	}
+}
+
+function addCard(card, deckId) {
+	return {
+		type: ADD_CARD,
+		card,
+		deckId
+	}
+}
+
+export function handleAddCard(question, answer, deckId) {
+	return async (dispatch) => {
+		const card = {
+			question,
+			answer
+		}
+
+		dispatch(addCard(card, deckId))
+
+		// api.addCard(card)
+
+		return card
 	}
 }
