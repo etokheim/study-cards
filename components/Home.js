@@ -20,7 +20,7 @@ export default connect(mapStateToProps)(class Home extends Component {
 
 		route.params.liftNavigation(navigation)
 		
-		if(!user) {
+		if(!user.name) {
 			navigation.navigate('Register')
 		}
 	}
@@ -58,7 +58,7 @@ export default connect(mapStateToProps)(class Home extends Component {
 		return (
 			<>
 				<ScrollView>
-					<Header text='Good morning, Erling' />
+					<Header text={`Good morning, ${user.name}`} />
 					{
 						toArray(decks).map((deck) => (
 							<DeckItem deck={ deck } navigation={ navigation } key={ deck.id } onLongPress={ this.handleLongPress } selected={ selected[deck.id] } />

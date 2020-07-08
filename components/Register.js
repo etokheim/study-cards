@@ -6,6 +6,7 @@ import { connect } from 'react-redux'
 import { ScrollView } from 'react-native'
 import Header from './Header'
 import { updateFab } from '../actions/fab'
+import { handleCreateUser } from '../actions/user'
 
 export default connect()(({ dispatch, navigation }) => {
 	// Declare new state variables
@@ -13,7 +14,9 @@ export default connect()(({ dispatch, navigation }) => {
 
 	const handleSubmit = () => {
 		console.log('Registering with the name', username)
-		// dispatch
+		dispatch(handleCreateUser(username))
+
+		navigation.navigate('Home')
 	}
 
 	let unsubscribe
