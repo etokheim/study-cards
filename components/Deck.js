@@ -30,7 +30,6 @@ export default connect(mapStateToProps)(({
 		<View>
 			<Header backButton={false} text={deck.name} />
 			<Button onPress={() => navigation.navigate('New Card', { deckId: deck.id })}>+ New card</Button>
-			<Text>{ JSON.stringify(deck) }</Text>
 			{
 				toArray(deck.cards).map((card) => (
 					<View style={{ marginBottom: 16 }} key={card.id}>
