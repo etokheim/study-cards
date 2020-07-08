@@ -7,6 +7,7 @@ import HomeStack from '../routes/HomeStack'
 import StatusBar from './StatusBar'
 import { updateFab } from '../actions/fab'
 import { receiveDecks, handleDeleteItems } from '../actions/decks'
+import { toggleAppbar } from '../actions/appbar'
 import { getAllDecks } from '../utils/api'
 
 const mapStateToProps = ({ decks, fab, appbar }) => { return { decks, fab, appbar } }
@@ -50,6 +51,7 @@ export default connect(mapStateToProps)(class Main extends Component {
 		const { appbar, dispatch } = this.props
 
 		dispatch(handleDeleteItems(appbar.selected))
+		dispatch(toggleAppbar(false))
 	}
 
 	render() {
