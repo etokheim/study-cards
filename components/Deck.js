@@ -28,15 +28,20 @@ export default connect(mapStateToProps)(({
 	})
 
 	return (
-		<ScrollView>
-			<Header backButton={false} text={deck.name} noMargin />
-			<Button onPress={() => navigation.navigate('New Card', { deckId: deck.id })}>+ New card</Button>
-			{/* TODO: Maybe add a delete button here as well */}
-			{
-				toArray(deck.cards).map((card) => (
-					<CardItem key={card.id} card={card} />
-				))
-			}
-		</ScrollView>
+		<>
+			{/* Mimic position fixed by putting an absolutely positioned element behind the ScrollView */}
+			<Header backButton={false} text={deck.name} noMargin style={{ position: 'absolute' }} />
+			<ScrollView>
+				<View style={{ paddingTop: 128 }}>
+					<Button onPress={() => navigation.navigate('New Card', { deckId: deck.id })}>+ New card</Button>
+					{/* TODO: Maybe add a delete button here as well */}
+					{
+						toArray(deck.cards).map((card) => (
+							<CardItem key={card.id} card={card} />
+						))
+					}
+				</View>
+			</ScrollView>
+		</>
 	)
 })
