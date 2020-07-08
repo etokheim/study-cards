@@ -11,8 +11,8 @@ export default connect(mapStateToProps)(({ dispatch, route, navigation }) => {
 	const { deckId } = route.params
 
 	// Declare new state variables
-	const [question, setQuestion] = useState(0)
-	const [answer, setAnswer] = useState(0)
+	const [question, setQuestion] = useState('')
+	const [answer, setAnswer] = useState('')
 
 	const handleSubmit = () => {
 		console.log('question:', question)
