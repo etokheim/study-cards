@@ -10,6 +10,10 @@ function CardItem({
 	const [flipped, setFlipped] = useState(false)
 	const windowHeight = Dimensions.get('window').height
 
+	const handleAnswer = (correct) => {
+		console.log('You answered', correct ? 'correctly' : 'wrongly')
+	}
+
 	return (
 		<FlipCard
 			flipHorizontal
@@ -20,7 +24,6 @@ function CardItem({
 			{/* Face Side */}
 			<Card style={[styles.card, { height: windowHeight - questionPadding }]}>
 				<Card.Content style={styles.cardContent}>
-					<Paragraph>{ questionPadding }</Paragraph>
 					<Paragraph>{ card.question }</Paragraph>
 					<Button onPress={() => setFlipped(true)} style={styles.button}>Answer</Button>
 					<Paragraph style={styles.cardsCounter}>{`${cardNumber} / ${numberOfCards}`}</Paragraph>
@@ -30,6 +33,8 @@ function CardItem({
 			<Card style={[styles.card, { height: windowHeight - questionPadding }]}>
 				<Card.Content style={styles.cardContent}>
 					<Paragraph>{ card.answer }</Paragraph>
+					<Button onPress={() => handleAnswer(true)}>Correct</Button>
+					<Button onPress={() => handleAnswer(false)}>Incorrect</Button>
 					<Button onPress={() => setFlipped(false)} style={styles.button}>Back</Button>
 					<Paragraph style={styles.cardsCounter}>{`${cardNumber} / ${numberOfCards}`}</Paragraph>
 				</Card.Content>
