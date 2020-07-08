@@ -28,22 +28,25 @@ export default connect(mapStateToProps)(class Main extends Component {
 
 		// Display FAB on mount
 		dispatch(updateFab(true))
-
-		// TODO: Fix this hack
-		// Wait for the children to lift up their navigation object.
-		setTimeout(() => {
-			this._unsubscribe = this.navigation.addListener('focus', () => {
-				// Also display the FAB when the user navigates back to Main
-				dispatch(updateFab(true))
-			});
-		}, 500)
-
+		
 		dispatch(receiveUser(await getUser()))
 		dispatch(receiveDecks(await getAllDecks()))
 	}
 
 	componentWillUnmount() {
 		this._unsubscribe();
+	}
+
+	componentDidUpdate() {
+		const { dispatch } = this.props
+
+		// If navigation has been lifted, attach an event listener to it if there isn't already
+		if(this.navigation && !this._unsubscribe) {
+			this._unsubscribe = this.navigation.addListener('focus', () => {
+				// Also display the FAB when the user navigates back to Main
+				dispatch(updateFab(true))
+			});
+		}
 	}
 
 	handleDelete = () => {
