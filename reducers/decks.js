@@ -1,5 +1,5 @@
 import {
-	RECEIVE_DECKS, ADD_DECK, DELETE_DECKS, ADD_CARD, ANSWER_CARD
+	RECEIVE_DECKS, ADD_DECK, DELETE_DECKS, ADD_CARD, ANSWER_CARD, FINISH_QUIZ
 } from '../actions/decks'
 
 export default function decks(state = {}, action) {
@@ -54,6 +54,14 @@ export default function decks(state = {}, action) {
 							answers: state[action.deckId].cards[action.cardId].answers.concat(action.answer)
 						}
 					}
+				}
+			}
+		case FINISH_QUIZ:
+			return {
+				...state,
+				results: {
+					...state.results,
+					[action.result.startTime]: action.result
 				}
 			}
 		default:

@@ -11,6 +11,7 @@ export const ADD_CARD = 'ADD_CARD'
 export const ADD_DECK = 'ADD_DECK'
 export const DELETE_DECKS = 'DELETE_DECKS'
 export const ANSWER_CARD = 'ANSWER_CARD'
+export const FINISH_QUIZ = 'FINISH_QUIZ'
 
 export function receiveDecks(decks) {
 	return {
@@ -105,9 +106,34 @@ export function handleAnswerCard(cardId, deckId, option) {
 
 		dispatch(answerCard(cardId, deckId, answer))
 
-		// TODO: Send to the API
 		api.answerCard(cardId, deckId, answer)
 
 		return answer
+	}
+}
+
+function finishQuiz(deckId, result) {
+	return {
+		type: FINISH_QUIZ,
+		deckId,
+		result
+	}
+}
+
+export function handleFinishQuiz(deckId, startTime, questionCount, correctCount) {
+	return async (dispatch) => {
+		const result = {
+			startTime,
+			endTime: Date.now(),
+			questionCount,
+			correctCount
+		}
+
+		dispatch(finishQuiz(deckId, result))
+
+		// TODO: Send to the API
+		// api.finishQuiz(deckId, result)
+
+		return result
 	}
 }
