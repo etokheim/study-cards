@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import {
-	View, Text, ScrollView, Dimensions, Animated
+	View, Dimensions, Animated, StyleSheet
 } from 'react-native'
 import { connect } from 'react-redux'
 import { Button, Paragraph } from 'react-native-paper'
@@ -98,16 +98,32 @@ export default connect(mapStateToProps)(({
 		scrollViewRef.scrollTo({ x: 0, y: 0, animated: true })
 	}
 
-	const handleScroll = (event) => {
-		// setScrollYPosition(event.nativeEvent.contentOffset.y)
-		console.log(event)
-	}
-
 	// Calculate previous score
 	const resultArray = toArray(deck.results)
 	const playedBefore = !!resultArray.length
 	const previousResult = playedBefore ? resultArray.sort((a, b) => a.startTime - b.startTime)[0] : undefined
 	const previousCorrectRatio = playedBefore ? Math.round((100 / previousResult.questionCount) * previousResult.correctCount) : undefined
+
+	const styles = StyleSheet.create({
+		deck: {
+			position: 'absolute',
+			width: '100%'
+		},
+		deckInfo: {
+			alignItems: 'center',
+			height: windowHeight - questionPadding - 32
+		},
+		startQuiz: {
+			width: '70%',
+			height: 56,
+			marginTop: 'auto',
+			marginBottom: 16,
+			justifyContent: 'center'
+		},
+		cards: {
+			paddingTop: windowHeight - 128
+		}
+	})
 
 	return (
 		<Animated.ScrollView
@@ -128,19 +144,14 @@ export default connect(mapStateToProps)(({
 
 				2. ScrollView doesn't seem to accept pointerEvents attribute, so we can't use that.
 			*/}
-			<Animated.View style={{
-				position: 'absolute',
-				width: '100%',
+			<Animated.View style={[ styles.deck, {
 				transform: [
 					{ translateY: scrollYPosition }
 				]
-			}}
+			}]}
 			>
 				<Header backButton={false} text={deck.name} noMargin handleOnLayout={handleOnLayout} />
-				<Animated.View style={{
-					alignItems: 'center',
-					height: windowHeight - questionPadding - 32,
-
+				<Animated.View style={[styles.deckInfo, {
 					// Fade out while scrolling
 					opacity: scrollYPosition.interpolate({
 						inputRange: [0, 500],
@@ -154,7 +165,7 @@ export default connect(mapStateToProps)(({
 							outputRange: [1, 0.9]
 						})
 					}]
-				}}
+				}]}
 				>
 					{
 						playedBefore
@@ -173,11 +184,11 @@ export default connect(mapStateToProps)(({
 							)
 					}
 					<Button onPress={() => navigation.navigate('New Card', { deckId: deck.id })}>+ New card</Button>
-					<Button mode='contained' onPress={startQuiz}>Start quiz</Button>
+					<Button mode='contained' onPress={startQuiz} style={styles.startQuiz}>Start quiz</Button>
 				</Animated.View>
 				{/* TODO: Maybe add a delete button here as well */}
 			</Animated.View>
-			<View style={{ paddingTop: windowHeight - 128 }}>
+			<View style={styles.cards}>
 				{
 					toArray(deck.cards)
 						.sort((a, b) => a.created - b.created)
