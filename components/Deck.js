@@ -9,7 +9,7 @@ import Header from './Header'
 import { updateFab } from '../actions/fab'
 import toArray from '../helpers/toArray'
 import CardItem from './CardItem'
-import { handleAnswerCard } from '../actions/decks'
+import { handleAnswerCard, handleFinishQuiz } from '../actions/decks'
 
 const mapStateToProps = ({ decks }) => ({ decks })
 
@@ -25,7 +25,7 @@ export default connect(mapStateToProps)(({
 	const [headerHeight, setHeaderHeight] = useState(60)
 	const [currentCard, setCurrentCard] = useState(0)
 	const [cardLayouts, setCardLayouts] = useState([])
-	const [quizRunId, setQuizRunId] = useState(Date.now())
+	const [quizStartTime, setQuizStartTime] = useState(Date.now())
 	const [answers, setAnswers] = useState({})
 
 	const questionPadding = headerHeight + Constants.statusBarHeight + 128
@@ -86,6 +86,10 @@ export default connect(mapStateToProps)(({
 
 	const finishQuiz = () => {
 		console.log('Finished quiz')
+
+		const correctCount = toArray(answers).filter((answer) => answer.correct).length
+
+		dispatch(handleFinishQuiz(deckId, quizStartTime, numberOfCards, correctCount))
 		scrollViewRef.scrollTo({ x: 0, y: 0, animated: true })
 	}
 
