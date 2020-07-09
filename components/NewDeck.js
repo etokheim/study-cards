@@ -6,6 +6,7 @@ import { handleAddDeck } from '../actions/decks'
 import { updateFab } from '../actions/fab'
 import { connect } from 'react-redux'
 import globalStyles from '../styles/global'
+import toArray from '../helpers/toArray'
 
 const mapStateToProps = ({ decks }) => { return { decks } }
 
@@ -22,17 +23,30 @@ export default connect(mapStateToProps)(class NewDeck extends Component {
 
 	handleSubmit = () => {
 		const { deckName } = this.state
-		const { dispatch, navigation } = this.props
+		const { dispatch } = this.props
 
 		dispatch(handleAddDeck(deckName))
-		navigation.navigate('Home')
+
+		// Set should navigate to true.
+		this.setState({
+			shouldNavigate: true
+		})
 	}
 
 	componentDidMount() {
 		this._unsubscribe = this.props.navigation.addListener('focus', () => {
 			this.props.dispatch(updateFab(false))
 		});
+	}
 
+	componentDidUpdate() {
+		const { navigation, decks } = this.props
+		const {shouldNavigate} = this.state
+
+		if(shouldNavigate) {
+			const latestDeck = toArray(decks).sort((a, b) => a.timestamp - b.timestamp).reverse()[0]
+			navigation.navigate('Deck', { deckId: latestDeck.id })
+		}
 	}
 
 	componentWillUnmount() {
