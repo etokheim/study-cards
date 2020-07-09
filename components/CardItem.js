@@ -5,7 +5,7 @@ import { Dimensions, StyleSheet, View } from 'react-native'
 import FlipCard from 'react-native-flip-card'
 
 export default function CardItem({
-	card, questionPadding = 80, cardNumber, numberOfCards, dispatch, deckId, nextCard, liftLayout, handleAnswer
+	card, totalHeaderHeight, cardNumber, numberOfCards, dispatch, deckId, nextCard, liftLayout, handleAnswer
 }) {
 	const [flipped, setFlipped] = useState(false)
 	const windowHeight = Dimensions.get('window').height
@@ -21,7 +21,7 @@ export default function CardItem({
 			}}
 		>
 			{/* Face Side */}
-			<Card style={[styles.card, { height: windowHeight - questionPadding }]}>
+			<Card style={[styles.card, { height: windowHeight - totalHeaderHeight }]}>
 				<Card.Content style={styles.cardContent}>
 					{
 						// Display a drag indicator on the first card
@@ -36,7 +36,7 @@ export default function CardItem({
 				</Card.Content>
 			</Card>
 			{/* Back Side */}
-			<Card style={[styles.card, { height: windowHeight - questionPadding }]}>
+			<Card style={[styles.card, { height: windowHeight - totalHeaderHeight }]}>
 				<Card.Content style={styles.cardContent}>
 					{
 						// Display a drag indicator on the first card
@@ -68,7 +68,11 @@ const styles = StyleSheet.create({
 		borderRadius: 10
 	},
 	question: {
-		fontSize: 48
+		fontSize: 48,
+		marginTop: 'auto',
+		marginBottom: 'auto',
+		bottom: 48,
+		padding: 16
 	},
 	answer: {
 		fontSize: 18,
@@ -95,7 +99,7 @@ const styles = StyleSheet.create({
 	},
 
 	card: {
-		marginBottom: 128
+		marginBottom: Dimensions.get('window').height / 2
 	},
 
 	cardsCounter: {

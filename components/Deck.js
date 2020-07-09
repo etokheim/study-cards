@@ -30,7 +30,8 @@ export default connect(mapStateToProps)(({
 	const [answers, setAnswers] = useState({})
 	const [scrollYPosition, setScrollYPosition] = useState(new Animated.Value(0))
 
-	const questionPadding = headerHeight + Constants.statusBarHeight + 128
+	// About the remaining screen real estate after the header
+	const totalHeaderHeight = headerHeight + Constants.statusBarHeight + 50
 
 	let unsubscribe
 
@@ -75,7 +76,7 @@ export default connect(mapStateToProps)(({
 			finishQuiz()
 		} else {
 			setCurrentCard(newCardIndex)
-			scrollViewRef.scrollTo({ x: 0, y: cardLayouts[newCardIndex].y, animated: true })
+			scrollViewRef.scrollTo({ x: 0, y: cardLayouts[newCardIndex].y - totalHeaderHeight + 40, animated: true })
 		}
 	}
 
@@ -120,7 +121,8 @@ export default connect(mapStateToProps)(({
 		},
 		deckInfo: {
 			alignItems: 'center',
-			height: windowHeight - questionPadding - 8
+			// Full screen height minus header and the card preview
+			height: windowHeight - totalHeaderHeight - 64
 		},
 		score: {
 			fontSize: 72,
@@ -179,7 +181,7 @@ export default connect(mapStateToProps)(({
 			borderRadius: 32
 		},
 		cards: {
-			paddingTop: windowHeight - 104
+			paddingTop: windowHeight - 90
 		}
 	})
 
@@ -278,7 +280,7 @@ export default connect(mapStateToProps)(({
 					toArray(deck.cards)
 						.sort((a, b) => a.created - b.created)
 						.map((card, index) => (
-							<CardItem handleAnswer={handleAnswer} liftLayout={handleLiftLayout} key={card.id} card={card} questionPadding={questionPadding} cardNumber={index + 1} numberOfCards={numberOfCards} deckId={deck.id} nextCard={nextCard} />
+							<CardItem handleAnswer={handleAnswer} liftLayout={handleLiftLayout} key={card.id} card={card} totalHeaderHeight={totalHeaderHeight} cardNumber={index + 1} numberOfCards={numberOfCards} deckId={deck.id} nextCard={nextCard} />
 						))
 				}
 			</View>
