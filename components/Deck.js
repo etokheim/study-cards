@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import {
-	View, Text, ScrollView, Dimensions
+	View, Text, ScrollView, Dimensions, Animated
 } from 'react-native'
 import { connect } from 'react-redux'
 import { Button, Paragraph } from 'react-native-paper'
@@ -27,6 +27,7 @@ export default connect(mapStateToProps)(({
 	const [cardLayouts, setCardLayouts] = useState([])
 	const [quizStartTime, setQuizStartTime] = useState(Date.now())
 	const [answers, setAnswers] = useState({})
+	const [scrollYPosition, setScrollYPosition] = useState(new Animated.Value(0))
 
 	const questionPadding = headerHeight + Constants.statusBarHeight + 128
 
@@ -93,6 +94,11 @@ export default connect(mapStateToProps)(({
 		scrollViewRef.scrollTo({ x: 0, y: 0, animated: true })
 	}
 
+	const handleScroll = (event) => {
+		// setScrollYPosition(event.nativeEvent.contentOffset.y)
+		console.log(event)
+	}
+
 	// Calculate previous score
 	const resultArray = toArray(deck.results)
 	const playedBefore = !!resultArray.length
@@ -101,33 +107,44 @@ export default connect(mapStateToProps)(({
 
 	return (
 		<>
-			{/* Mimic position fixed by putting an absolutely positioned element behind the ScrollView */}
-			<View style={{ position: 'absolute', width: '100%' }}>
-				<Header backButton={false} text={deck.name} noMargin handleOnLayout={handleOnLayout} />
-				<View style={{ alignItems: 'center', zIndex: 10 }}>
-					{
-						playedBefore
-							? (
-								<>
-									<Paragraph>Last score</Paragraph>
-									<Paragraph>
-										{
-											`${previousCorrectRatio}%`
-										}
-									</Paragraph>
-								</>
-							)
-							: (
-								<Paragraph>You have not played this quiz yet</Paragraph>
-							)
-					}
-					<Button onPress={() => navigation.navigate('New Card', { deckId: deck.id })}>+ New card</Button>
-					<Button mode='contained' onPress={startQuiz}>Start quiz</Button>
-				</View>
-				{/* TODO: Maybe add a delete button here as well */}
-			</View>
-			<ScrollView ref={(element) => scrollViewRef = element}>
-				<View style={{ paddingTop: windowHeight - 64 }}>
+			<Animated.ScrollView
+				ref={(element) => scrollViewRef = element}
+				scrollEventThrottle={1}
+				onScroll={Animated.event(
+					[{ nativeEvent: { contentOffset: { y: scrollYPosition } } }],
+					{ useNativeDriver: true } // <-- Add this
+				)}
+			>
+				{/* Mimic position fixed by putting an absolutely positioned element behind the ScrollView */}
+				<Animated.View style={{ position: 'absolute', width: '100%', top: 0 }}>
+					<Header backButton={false} text={deck.name} noMargin handleOnLayout={handleOnLayout} />
+					<View style={{
+						alignItems: 'center', height: windowHeight - questionPadding - 32, backgroundColor: 'blue'
+					}}
+					>
+						<Text>{ JSON.stringify(scrollYPosition) }</Text>
+						{
+							playedBefore
+								? (
+									<>
+										<Paragraph>Last score</Paragraph>
+										<Paragraph>
+											{
+												`${previousCorrectRatio}%`
+											}
+										</Paragraph>
+									</>
+								)
+								: (
+									<Paragraph>You have not played this quiz yet</Paragraph>
+								)
+						}
+						<Button onPress={() => navigation.navigate('New Card', { deckId: deck.id })}>+ New card</Button>
+						<Button mode='contained' onPress={startQuiz}>Start quiz</Button>
+					</View>
+					{/* TODO: Maybe add a delete button here as well */}
+				</Animated.View>
+				<View style={{ paddingTop: windowHeight - 128 }}>
 					{
 						toArray(deck.cards)
 							.sort((a, b) => a.created - b.created)
@@ -136,7 +153,7 @@ export default connect(mapStateToProps)(({
 							))
 					}
 				</View>
-			</ScrollView>
+			</Animated.ScrollView>
 		</>
 	)
 })
