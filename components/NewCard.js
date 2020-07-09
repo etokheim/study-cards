@@ -43,7 +43,7 @@ export default connect()(({ dispatch, route, navigation }) => {
 					width: 200, marginTop: 8
 				}}
 			>
-				Submit
+				Create card
 			</Button>
 		</ScrollView>
 	)

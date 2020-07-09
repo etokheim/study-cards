@@ -53,7 +53,7 @@ export default connect(mapStateToProps)(class NewDeck extends Component {
 						width: 200, marginTop: 8
 					}}
 				>
-					Submit
+					Create deck
 				</Button>
 			</ScrollView>
 		)
