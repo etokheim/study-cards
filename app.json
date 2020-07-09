@@ -1,0 +1,11 @@
+{
+	"expo": {
+		"name": "Study Cards",
+		"description": "A study companion app",
+		"slug": "study-cards",
+		"splash": {
+			"image": "./img/study-card-logo.png",
+			"backgroundColor": "#FEF9B0"
+		}
+	}
+}
