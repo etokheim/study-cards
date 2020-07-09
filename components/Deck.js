@@ -115,11 +115,31 @@ export default connect(mapStateToProps)(({
 					{ useNativeDriver: true } // <-- Add this
 				)}
 			>
-				{/* Mimic position fixed by putting an absolutely positioned element behind the ScrollView */}
-				<Animated.View style={{ position: 'absolute', width: '100%', top: 0 }}>
+				{/*
+					Mimic position fixed offsetting the view equal to scroll distance.
+					It's an ugly hack, but even though it's a simple thing and a common UI pattern, I
+					can't figure out how to do it properly.
+
+					1. The react-native-touch-through-view seemed very promising, but requires ejecting
+					Expo, which is a no go at this time.
+
+					2. ScrollView doesn't seem to accept pointerEvents attribute, so we can't use that.
+				*/}
+				<Animated.View style={{
+					position: 'absolute',
+					width: '100%',
+					transform: [
+						{ translateY: scrollYPosition }
+					],
+					opacity: scrollYPosition.interpolate({
+						inputRange: [0, 500],
+						outputRange: [1, 0]
+					})
+				}}
+				>
 					<Header backButton={false} text={deck.name} noMargin handleOnLayout={handleOnLayout} />
 					<View style={{
-						alignItems: 'center', height: windowHeight - questionPadding - 32, backgroundColor: 'blue'
+						alignItems: 'center', height: windowHeight - questionPadding - 32
 					}}
 					>
 						<Text>{ JSON.stringify(scrollYPosition) }</Text>
