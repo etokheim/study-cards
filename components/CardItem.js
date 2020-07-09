@@ -38,6 +38,13 @@ export default function CardItem({
 			{/* Back Side */}
 			<Card style={[styles.card, { height: windowHeight - questionPadding }]}>
 				<Card.Content style={styles.cardContent}>
+					{
+						// Display a drag indicator on the first card
+						cardNumber === 1
+							? (
+								<View style={styles.dragIndicator} />
+							) : null
+					}
 					<Text style={styles.answer}>{ card.answer }</Text>
 					<View style={styles.answerButtons}>
 						<Button style={styles.answerButton} onPress={() => handleAnswer(card.id, deckId, true)}>Correct</Button>
