@@ -67,6 +67,26 @@ export async function answerCard(cardId, deckId, answer) {
 	}))
 }
 
+export async function finishQuiz(deckId, result) {
+	let decks = await AsyncStorage.getItem(DECK_STORAGE_KEY)
+
+	decks = JSON.parse(decks)
+
+	const deck = decks[deckId]
+
+	return AsyncStorage.mergeItem(DECK_STORAGE_KEY, JSON.stringify({
+		[deckId]: {
+			...deck,
+			results: {
+				...deck.results,
+				[result.startTime]: {
+					...result
+				}
+			}
+		}
+	}))
+}
+
 export async function removeDeck(ids) {
 	let decks = await AsyncStorage.getItem(DECK_STORAGE_KEY)
 

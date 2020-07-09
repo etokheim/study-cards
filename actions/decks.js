@@ -132,8 +132,7 @@ export function handleFinishQuiz(deckId, startTime, questionCount, correctCount)
 
 		dispatch(finishQuiz(deckId, result))
 
-		// TODO: Send to the API
-		// api.finishQuiz(deckId, result)
+		api.finishQuiz(deckId, result)
 
 		return result
 	}
