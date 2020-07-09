@@ -9,6 +9,7 @@ import Header from './Header'
 import { updateFab } from '../actions/fab'
 import toArray from '../helpers/toArray'
 import CardItem from './CardItem'
+import { handleAnswerCard } from '../actions/decks'
 
 const mapStateToProps = ({ decks }) => ({ decks })
 
@@ -44,6 +45,11 @@ export default connect(mapStateToProps)(({
 		const { height } = event.nativeEvent.layout
 		console.log('Layout is running', height)
 		setHeaderHeight(height)
+	}
+
+	const handleAnswer = (cardId, deckIdLocalScope, correct) => {
+		dispatch(handleAnswerCard(cardId, deckIdLocalScope, correct))
+		nextCard()
 	}
 
 	const nextCard = (index) => {
@@ -83,7 +89,7 @@ export default connect(mapStateToProps)(({
 						toArray(deck.cards)
 							.sort((a, b) => a.created - b.created)
 							.map((card, index) => (
-								<CardItem liftLayout={handleLiftLayout} key={card.id} card={card} questionPadding={questionPadding} cardNumber={index + 1} numberOfCards={numberOfCards} deckId={deck.id} nextCard={nextCard} />
+								<CardItem handleAnswer={handleAnswer} liftLayout={handleLiftLayout} key={card.id} card={card} questionPadding={questionPadding} cardNumber={index + 1} numberOfCards={numberOfCards} deckId={deck.id} nextCard={nextCard} />
 							))
 					}
 				</View>

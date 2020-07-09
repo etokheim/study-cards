@@ -2,16 +2,11 @@ import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { Card, Button, Paragraph } from 'react-native-paper'
 import { Dimensions, StyleSheet } from 'react-native'
-import { connect } from 'react-redux'
 import FlipCard from 'react-native-flip-card'
-import { handleAnswerCard } from '../actions/decks'
 
-// TODO: Figure out why destructuring and returning only the needed props sets the props to undefined
-const mapStateToProps = (props) => (props)
-
-export default connect(mapStateToProps)(({
-	card, questionPadding = 80, cardNumber, numberOfCards, dispatch, deckId, nextCard, liftLayout
-}) => {
+export default function CardItem({
+	card, questionPadding = 80, cardNumber, numberOfCards, dispatch, deckId, nextCard, liftLayout, handleAnswer
+}) {
 	const styles = StyleSheet.create({
 		button: {
 			position: 'absolute',
@@ -38,11 +33,6 @@ export default connect(mapStateToProps)(({
 	const [flipped, setFlipped] = useState(false)
 	const windowHeight = Dimensions.get('window').height
 
-	const handleAnswerLocal = (correct) => {
-		dispatch(handleAnswerCard(card.id, deckId, correct))
-		nextCard()
-	}
-
 	return (
 		<FlipCard
 			flipHorizontal
@@ -65,12 +55,12 @@ export default connect(mapStateToProps)(({
 			<Card style={[styles.card, { height: windowHeight - questionPadding }]}>
 				<Card.Content style={styles.cardContent}>
 					<Paragraph>{ card.answer }</Paragraph>
-					<Button onPress={() => handleAnswerLocal(true)}>Correct</Button>
-					<Button onPress={() => handleAnswerLocal(false)}>Incorrect</Button>
+					<Button onPress={() => handleAnswer(card.id, deckId, true)}>Correct</Button>
+					<Button onPress={() => handleAnswer(card.id, deckId, false)}>Incorrect</Button>
 					<Button onPress={() => setFlipped(false)} style={styles.button}>Back</Button>
 					<Paragraph style={styles.cardsCounter}>{`${cardNumber} / ${numberOfCards}`}</Paragraph>
 				</Card.Content>
 			</Card>
 		</FlipCard>
 	)
-})
+}
