@@ -4,6 +4,7 @@ import { TextInput, Button, Paragraph } from 'react-native-paper'
 import { connect } from 'react-redux'
 import Header from './Header'
 import { handleAddCard } from '../actions/decks'
+import globalStyles from '../styles/global'
 
 const mapStateToProps = ({ }) => ({ })
 
@@ -23,7 +24,7 @@ export default connect(mapStateToProps)(({ dispatch, route, navigation }) => {
 	}
 
 	return (
-		<ScrollView>
+		<ScrollView style={[globalStyles.main]}>
 			<Header backButton text='Create card' />
 			<Paragraph>{ deckId }</Paragraph>
 			<TextInput placeholder="What's ..." label='Question' onChangeText={(text) => setQuestion(text)} value={question} />

@@ -10,6 +10,7 @@ import { updateFab } from '../actions/fab'
 import toArray from '../helpers/toArray'
 import CardItem from './CardItem'
 import { handleAnswerCard, handleFinishQuiz } from '../actions/decks'
+import globalStyles from '../styles/global'
 
 const mapStateToProps = ({ decks }) => ({ decks })
 
@@ -172,6 +173,7 @@ export default connect(mapStateToProps)(({
 				[{ nativeEvent: { contentOffset: { y: scrollYPosition } } }],
 				{ useNativeDriver: true }
 			)}
+			style={globalStyles.main}
 		>
 			{/*
 				Mimic position fixed offsetting the view equal to scroll distance.

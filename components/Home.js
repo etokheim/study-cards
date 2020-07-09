@@ -5,6 +5,7 @@ import Header from './Header'
 import toArray from '../helpers/toArray'
 import DeckItem from './DeckItem'
 import { toggleAppbar, selectItem, deselectItem } from '../actions/appbar'
+import globalStyles from '../styles/global'
 
 const mapStateToProps = ({ decks, liftNavigation, appbar, user }) => { return { decks, liftNavigation, appbar, user } }
 
@@ -61,7 +62,7 @@ export default connect(mapStateToProps)(class Home extends Component {
 		const { selected } = this.state
 		return (
 			<>
-				<ScrollView>
+				<ScrollView style={ globalStyles.main }>
 					<Header text={`Good morning, ${user.name}`} />
 					{
 						toArray(decks).map((deck) => (

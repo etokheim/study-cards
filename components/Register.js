@@ -7,6 +7,7 @@ import { ScrollView } from 'react-native'
 import Header from './Header'
 import { updateFab } from '../actions/fab'
 import { handleCreateUser } from '../actions/user'
+import globalStyles from '../styles/global'
 
 export default connect()(({ dispatch, navigation }) => {
 	// Declare new state variables
@@ -32,7 +33,7 @@ export default connect()(({ dispatch, navigation }) => {
 	})
 
 	return (
-		<ScrollView>
+		<ScrollView style={[globalStyles.main]}>
 			<Header text='Welcome!' />
 			<Card>
 				<Card.Title title='Registration' />

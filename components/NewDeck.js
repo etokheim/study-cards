@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
-import { View, Text } from 'react-native'
+import { ScrollView, Text } from 'react-native'
 import { TextInput, HelperText, Button } from 'react-native-paper'
 import Header from './Header'
 import { handleAddDeck } from '../actions/decks'
 import { updateFab } from '../actions/fab'
 import { connect } from 'react-redux'
+import globalStyles from '../styles/global'
 
 const mapStateToProps = ({ decks }) => { return { decks } }
 
@@ -41,7 +42,7 @@ export default connect(mapStateToProps)(class NewDeck extends Component {
 	render() {
 		const { deckName } = this.state
 		return (
-			<View>
+			<ScrollView style={[globalStyles.main]}>
 				<Header backButton text='Create deck' />
 				<TextInput placeholder='Anatomy' label='Deck name' onChangeText={ (text) => this.handleTextInput("deckName", text)} value={ deckName } />
 				<Button
@@ -53,7 +54,7 @@ export default connect(mapStateToProps)(class NewDeck extends Component {
 				>
 					Submit
 				</Button>
-			</View>
+			</ScrollView>
 		)
 	}
 })
