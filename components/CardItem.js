@@ -10,7 +10,7 @@ import { handleAnswerCard } from '../actions/decks'
 const mapStateToProps = (props) => (props)
 
 export default connect(mapStateToProps)(({
-	card, questionPadding = 80, cardNumber, numberOfCards, dispatch, deckId
+	card, questionPadding = 80, cardNumber, numberOfCards, dispatch, deckId, nextCard, liftLayout
 }) => {
 	const styles = StyleSheet.create({
 		button: {
@@ -40,6 +40,7 @@ export default connect(mapStateToProps)(({
 
 	const handleAnswerLocal = (correct) => {
 		dispatch(handleAnswerCard(card.id, deckId, correct))
+		nextCard()
 	}
 
 	return (
@@ -48,6 +49,9 @@ export default connect(mapStateToProps)(({
 			flipVertical={false}
 			clickable={false}
 			flip={flipped}
+			onLayout={(event) => {
+				liftLayout(event.nativeEvent.layout, cardNumber - 1)
+			}}
 		>
 			{/* Face Side */}
 			<Card style={[styles.card, { height: windowHeight - questionPadding }]}>

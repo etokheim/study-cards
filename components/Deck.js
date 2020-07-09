@@ -22,10 +22,13 @@ export default connect(mapStateToProps)(({
 
 	// State
 	const [headerHeight, setHeaderHeight] = useState(60)
+	const [currentCard, setCurrentCard] = useState(0)
+	const [cardLayouts, setCardLayouts] = useState([])
 
 	const questionPadding = headerHeight + Constants.statusBarHeight + 128
 
 	let unsubscribe
+	let scrollViewRef
 
 	useEffect(() => {
 		unsubscribe = navigation.addListener('focus', () => {
@@ -43,23 +46,36 @@ export default connect(mapStateToProps)(({
 		setHeaderHeight(height)
 	}
 
+	const nextCard = (index) => {
+		const newCardIndex = index || currentCard + 1
+		setCurrentCard(newCardIndex)
+		scrollViewRef.scrollTo({ x: 0, y: cardLayouts[newCardIndex].y, animated: true })
+	}
+
+	const handleLiftLayout = (layout, index) => {
+		const newCardLayouts = cardLayouts.map((cardHeight) => cardHeight)
+		newCardLayouts[index] = layout
+		setCardLayouts(newCardLayouts)
+	}
+
 	return (
 		<>
 			{/* Mimic position fixed by putting an absolutely positioned element behind the ScrollView */}
 			<View style={{ position: 'absolute', width: '100%' }}>
 				<Header backButton={false} text={deck.name} noMargin handleOnLayout={handleOnLayout} />
-				<View style={{ alignItems: 'center' }}>
+				<View style={{ alignItems: 'center', zIndex: 10 }}>
 					<Text>Last score</Text>
 					<Text>76%</Text>
 					<Button onPress={() => navigation.navigate('New Card', { deckId: deck.id })}>+ New card</Button>
 				</View>
 				{/* TODO: Maybe add a delete button here as well */}
 			</View>
-			<ScrollView>
+			<ScrollView ref={(element) => scrollViewRef = element}>
+				<Text>{ JSON.stringify(cardLayouts) }</Text>
 				<View style={{ paddingTop: windowHeight - 64 }}>
 					{
 						toArray(deck.cards).map((card, index) => (
-							<CardItem key={card.id} card={card} questionPadding={questionPadding} cardNumber={index + 1} numberOfCards={numberOfCards} deckId={deck.id} />
+							<CardItem liftLayout={handleLiftLayout} key={card.id} card={card} questionPadding={questionPadding} cardNumber={index + 1} numberOfCards={numberOfCards} deckId={deck.id} nextCard={nextCard} />
 						))
 					}
 				</View>
