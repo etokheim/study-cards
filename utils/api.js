@@ -46,6 +46,27 @@ export async function addCard(card, deckId) {
 	}))
 }
 
+export async function answerCard(cardId, deckId, answer) {
+	let decks = await AsyncStorage.getItem(DECK_STORAGE_KEY)
+
+	decks = JSON.parse(decks)
+
+	const deck = decks[deckId]
+
+	return AsyncStorage.mergeItem(DECK_STORAGE_KEY, JSON.stringify({
+		[deckId]: {
+			...deck,
+			cards: {
+				...deck.cards,
+				[cardId]: {
+					...deck.cards[cardId],
+					answers: deck.cards[cardId].answers.concat(answer)
+				}
+			}
+		}
+	}))
+}
+
 export async function removeDeck(ids) {
 	let decks = await AsyncStorage.getItem(DECK_STORAGE_KEY)
 

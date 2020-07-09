@@ -106,7 +106,7 @@ export function handleAnswerCard(cardId, deckId, option) {
 		dispatch(answerCard(cardId, deckId, answer))
 
 		// TODO: Send to the API
-		// api.addCard(card, deckId)
+		api.answerCard(cardId, deckId, answer)
 
 		return answer
 	}
