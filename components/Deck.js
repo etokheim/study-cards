@@ -3,7 +3,7 @@ import {
 	View, Dimensions, Animated, StyleSheet
 } from 'react-native'
 import { connect } from 'react-redux'
-import { Button, Paragraph } from 'react-native-paper'
+import { Button, Paragraph, Text } from 'react-native-paper'
 import Constants from 'expo-constants'
 import Header from './Header'
 import { updateFab } from '../actions/fab'
@@ -112,10 +112,40 @@ export default connect(mapStateToProps)(({
 			alignItems: 'center',
 			height: windowHeight - questionPadding - 32
 		},
+		score: {
+			fontSize: 72,
+			marginTop: 48
+		},
+		scoreSubtitle: {
+			opacity: 0.6,
+			fontSize: 18
+		},
+		keyPoints: {
+			marginTop: 'auto',
+			marginBottom: 32,
+			flexDirection: 'row'
+		},
+		keyPoint: {
+			minWidth: 48,
+			marginRight: 32,
+			marginLeft: 32,
+			opacity: 0.6
+		},
+		keyPointLabel: {
+			fontSize: 16,
+			textAlign: 'center'
+		},
+		keyPointValue: {
+			fontSize: 32,
+			textAlign: 'center'
+		},
+		keyPointValueOperator: {
+			fontSize: 16
+		},
 		startQuiz: {
 			width: '70%',
 			height: 56,
-			marginTop: 'auto',
+			// marginTop: 'auto',
 			marginBottom: 16,
 			justifyContent: 'center'
 		},
@@ -170,18 +200,35 @@ export default connect(mapStateToProps)(({
 						playedBefore
 							? (
 								<>
-									<Paragraph>Last score</Paragraph>
-									<Paragraph>
+									<Text style={styles.score}>
 										{
 											`${previousCorrectRatio}%`
 										}
-									</Paragraph>
+									</Text>
+									<Paragraph style={styles.scoreSubtitle}>correct on your last try!</Paragraph>
 								</>
 							)
 							: (
 								<Paragraph>You have not played this quiz yet</Paragraph>
 							)
 					}
+					<View style={styles.keyPoints}>
+						<View style={styles.keyPoint}>
+							<Text style={[styles.keyPointValue, styles.number]}>2</Text>
+							<Text style={styles.keyPointLabel}>Tries</Text>
+						</View>
+						<View style={styles.keyPoint}>
+							<Text style={[styles.keyPointValue, styles.number]}>4</Text>
+							<Text style={styles.keyPointLabel}>Cards</Text>
+						</View>
+						<View style={styles.keyPoint}>
+							<Text style={[styles.keyPointValue, styles.number]}>
+								53
+								<Text style={[styles.keyPointValueOperator]}>%</Text>
+							</Text>
+							<Text style={styles.keyPointLabel}>Average</Text>
+						</View>
+					</View>
 					<Button onPress={() => navigation.navigate('New Card', { deckId: deck.id })}>+ New card</Button>
 					<Button mode='contained' onPress={startQuiz} style={styles.startQuiz}>Start quiz</Button>
 					{/* TODO: Maybe add a delete button here as well */}
