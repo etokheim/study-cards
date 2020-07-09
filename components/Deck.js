@@ -191,7 +191,7 @@ export default connect(mapStateToProps)(({
 				]
 			}]}
 			>
-				<Header backButton={false} text={deck.name} noMargin handleOnLayout={handleOnLayout} />
+				<Header navigation={navigation} backButton text={deck.name} noMargin handleOnLayout={handleOnLayout} />
 				<Animated.View style={[styles.deckInfo, {
 					// Fade out while scrolling
 					opacity: scrollYPosition.interpolate({

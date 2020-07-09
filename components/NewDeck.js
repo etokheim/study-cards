@@ -41,9 +41,10 @@ export default connect(mapStateToProps)(class NewDeck extends Component {
 
 	render() {
 		const { deckName } = this.state
+		const { navigation } = this.props
 		return (
 			<ScrollView style={[globalStyles.main]}>
-				<Header backButton text='Create deck' />
+				<Header navigation={navigation} backButton text='Create deck' />
 				<TextInput placeholder='Anatomy' label='Deck name' onChangeText={ (text) => this.handleTextInput("deckName", text)} value={ deckName } />
 				<Button
 					mode='contained'

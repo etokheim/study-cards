@@ -6,9 +6,7 @@ import Header from './Header'
 import { handleAddCard } from '../actions/decks'
 import globalStyles from '../styles/global'
 
-const mapStateToProps = ({ }) => ({ })
-
-export default connect(mapStateToProps)(({ dispatch, route, navigation }) => {
+export default connect()(({ dispatch, route, navigation }) => {
 	const { deckId } = route.params
 
 	// Declare new state variables
@@ -25,7 +23,7 @@ export default connect(mapStateToProps)(({ dispatch, route, navigation }) => {
 
 	return (
 		<ScrollView style={[globalStyles.main]}>
-			<Header backButton text='Create card' />
+			<Header navigation={navigation} backButton text='Create card' />
 			<Paragraph>{ deckId }</Paragraph>
 			<TextInput placeholder="What's ..." label='Question' onChangeText={(text) => setQuestion(text)} value={question} />
 			<TextInput
