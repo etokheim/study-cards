@@ -74,9 +74,11 @@ export default connect(mapStateToProps)(({
 				<Text>{ JSON.stringify(cardLayouts) }</Text>
 				<View style={{ paddingTop: windowHeight - 64 }}>
 					{
-						toArray(deck.cards).map((card, index) => (
-							<CardItem liftLayout={handleLiftLayout} key={card.id} card={card} questionPadding={questionPadding} cardNumber={index + 1} numberOfCards={numberOfCards} deckId={deck.id} nextCard={nextCard} />
-						))
+						toArray(deck.cards)
+							.sort((a, b) => a.created - b.created)
+							.map((card, index) => (
+								<CardItem liftLayout={handleLiftLayout} key={card.id} card={card} questionPadding={questionPadding} cardNumber={index + 1} numberOfCards={numberOfCards} deckId={deck.id} nextCard={nextCard} />
+							))
 					}
 				</View>
 			</ScrollView>
