@@ -59,9 +59,12 @@ export default function decks(state = {}, action) {
 		case FINISH_QUIZ:
 			return {
 				...state,
-				results: {
-					...state.results,
-					[action.result.startTime]: action.result
+				[action.deckId]: {
+					...state[action.deckId],
+					results: {
+						...state.results,
+						[action.result.startTime]: action.result
+					}
 				}
 			}
 		default:
