@@ -98,11 +98,20 @@ export default connect(mapStateToProps)(({
 		scrollViewRef.scrollTo({ x: 0, y: 0, animated: true })
 	}
 
-	// Calculate previous score
+	// Calculate stats
 	const resultArray = toArray(deck.results)
 	const playedBefore = !!resultArray.length
 	const previousResult = playedBefore ? resultArray.sort((a, b) => a.startTime - b.startTime)[0] : undefined
 	const previousCorrectRatio = playedBefore ? Math.round((100 / previousResult.questionCount) * previousResult.correctCount) : undefined
+	const averageResult = playedBefore ? Math.round(
+		resultArray
+			.map((result) => (100 / result.questionCount) * result.correctCount)
+			.reduce((a, b) => a + b)
+			/ resultArray.length
+	) : 0
+
+	console.log('resultArray', resultArray)
+	console.log('averageResult', averageResult)
 
 	const styles = StyleSheet.create({
 		deck: {
@@ -226,19 +235,23 @@ export default connect(mapStateToProps)(({
 					}
 					<View style={styles.keyPoints}>
 						<View style={styles.keyPoint}>
-							<Text style={[styles.keyPointValue, styles.number]}>2</Text>
-							<Text style={styles.keyPointLabel}>Tries</Text>
-						</View>
-						<View style={styles.keyPoint}>
-							<Text style={[styles.keyPointValue, styles.number]}>4</Text>
-							<Text style={styles.keyPointLabel}>Cards</Text>
+							<Text style={[styles.keyPointValue, styles.number]}>
+								{ resultArray.length }
+							</Text>
+							<Text style={styles.keyPointLabel}>tries</Text>
 						</View>
 						<View style={styles.keyPoint}>
 							<Text style={[styles.keyPointValue, styles.number]}>
-								53
+								{ numberOfCards }
+							</Text>
+							<Text style={styles.keyPointLabel}>cards</Text>
+						</View>
+						<View style={styles.keyPoint}>
+							<Text style={[styles.keyPointValue, styles.number]}>
+								{ averageResult }
 								<Text style={[styles.keyPointValueOperator]}>%</Text>
 							</Text>
-							<Text style={styles.keyPointLabel}>Average</Text>
+							<Text style={styles.keyPointLabel}>average</Text>
 						</View>
 					</View>
 					<Button mode='contained' onPress={startQuiz} style={styles.startQuiz}>Start quiz</Button>
