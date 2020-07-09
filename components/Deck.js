@@ -111,7 +111,7 @@ export default connect(mapStateToProps)(({
 		},
 		deckInfo: {
 			alignItems: 'center',
-			height: windowHeight - questionPadding - 32
+			height: windowHeight - questionPadding - 8
 		},
 		score: {
 			fontSize: 72,
@@ -161,7 +161,7 @@ export default connect(mapStateToProps)(({
 			borderRadius: 32
 		},
 		cards: {
-			paddingTop: windowHeight - 128
+			paddingTop: windowHeight - 104
 		}
 	})
 
