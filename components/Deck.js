@@ -87,12 +87,11 @@ export default connect(mapStateToProps)(({
 	}
 
 	const startQuiz = () => {
+		setQuizStartTime(Date.now())
 		nextCard(0)
 	}
 
 	const finishQuiz = () => {
-		console.log('Finished quiz')
-
 		const correctCount = toArray(answers).filter((answer) => answer.correct).length
 
 		dispatch(handleFinishQuiz(deckId, quizStartTime, numberOfCards, correctCount))
@@ -110,9 +109,6 @@ export default connect(mapStateToProps)(({
 			.reduce((a, b) => a + b)
 			/ resultArray.length
 	) : 0
-
-	console.log('resultArray', resultArray)
-	console.log('averageResult', averageResult)
 
 	const styles = StyleSheet.create({
 		deck: {

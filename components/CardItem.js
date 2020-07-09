@@ -14,6 +14,8 @@ export default function CardItem({
 		<FlipCard
 			flipHorizontal
 			flipVertical={false}
+			// Setting clickable to anything else might mess with starting the quiz
+			// so test that if you are going to change this behavior.
 			clickable={false}
 			flip={flipped}
 			onLayout={(event) => {
