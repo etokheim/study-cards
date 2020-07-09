@@ -13,13 +13,16 @@ export default connect(mapStateToProps)(class Home extends Component {
 	state = {
 		// TODO: Consider consolidating the state's selected object with the appbar's
 		// selected object (Redux)
-		selected: {}
+		selected: {},
+		welcomingPhrase: ""
 	}
 
 	componentDidMount() {
 		const { route, navigation, user } = this.props
 
 		route.params.liftNavigation(navigation)
+
+		this.setWelcomingPhrase()
 	}
 
 	componentDidUpdate() {
@@ -57,13 +60,32 @@ export default connect(mapStateToProps)(class Home extends Component {
 		})
 	}
 
+	setWelcomingPhrase = () => {
+		const hours = new Date().getHours()
+		let welcomingPhrase = ""
+
+		if(hours < 4) {
+			welcomingPhrase = "It's bedtime"
+		} else if(hours < 12) {
+			welcomingPhrase = 'Good morning'
+		} else if(hours < 18) {
+			welcomingPhrase = 'Good afternoon'
+		} else {
+			welcomingPhrase = 'Good evening'
+		}
+
+		this.setState({
+			welcomingPhrase
+		})
+	}
+
 	render() {
 		const { navigation, decks, user } = this.props
-		const { selected } = this.state
+		const { selected, welcomingPhrase } = this.state
 		return (
 			<>
 				<ScrollView style={ globalStyles.main }>
-					<Header text={`Good morning, ${user.name}`} />
+					<Header text={`${welcomingPhrase}, ${user.name}`} />
 					{
 						toArray(decks).map((deck) => (
 							<DeckItem deck={ deck } navigation={ navigation } key={ deck.id } onLongPress={ this.handleLongPress } selected={ selected[deck.id] } />
