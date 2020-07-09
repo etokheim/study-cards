@@ -93,14 +93,34 @@ export default connect(mapStateToProps)(({
 		scrollViewRef.scrollTo({ x: 0, y: 0, animated: true })
 	}
 
+	// Calculate previous score
+	const resultArray = toArray(deck.results)
+	const playedBefore = !!resultArray.length
+	const previousResult = playedBefore ? resultArray.sort((a, b) => a.startTime - b.startTime)[0] : undefined
+	const previousCorrectRatio = playedBefore ? Math.round((100 / previousResult.questionCount) * previousResult.correctCount) : undefined
+
 	return (
 		<>
 			{/* Mimic position fixed by putting an absolutely positioned element behind the ScrollView */}
 			<View style={{ position: 'absolute', width: '100%' }}>
 				<Header backButton={false} text={deck.name} noMargin handleOnLayout={handleOnLayout} />
 				<View style={{ alignItems: 'center', zIndex: 10 }}>
-					<Paragraph>Last score</Paragraph>
-					<Paragraph>76%</Paragraph>
+					{
+						playedBefore
+							? (
+								<>
+									<Paragraph>Last score</Paragraph>
+									<Paragraph>
+										{
+											`${previousCorrectRatio}%`
+										}
+									</Paragraph>
+								</>
+							)
+							: (
+								<Paragraph>You have not played this quiz yet</Paragraph>
+							)
+					}
 					<Button onPress={() => navigation.navigate('New Card', { deckId: deck.id })}>+ New card</Button>
 					<Button mode='contained' onPress={startQuiz}>Start quiz</Button>
 				</View>
