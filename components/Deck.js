@@ -94,6 +94,11 @@ export default connect(mapStateToProps)(({
 	}
 
 	const startQuiz = () => {
+		if (numberOfCards === 0) {
+			alert('You have to create some cards before you can start the quiz 😉')
+			return
+		}
+
 		setQuizStartTime(Date.now())
 		nextCard(0)
 	}
