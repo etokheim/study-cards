@@ -47,7 +47,8 @@ export default connect(mapStateToProps)(({
 	}
 
 	const nextCard = (index) => {
-		const newCardIndex = index || currentCard + 1
+		// If index is a number, keep it, else set it to currentCard + 1
+		const newCardIndex = !isNaN(index) ? index : currentCard + 1
 		setCurrentCard(newCardIndex)
 		scrollViewRef.scrollTo({ x: 0, y: cardLayouts[newCardIndex].y, animated: true })
 	}
@@ -56,6 +57,11 @@ export default connect(mapStateToProps)(({
 		const newCardLayouts = cardLayouts.map((cardHeight) => cardHeight)
 		newCardLayouts[index] = layout
 		setCardLayouts(newCardLayouts)
+	}
+
+	const startQuiz = () => {
+		console.log('Start quiz')
+		nextCard(0)
 	}
 
 	return (
@@ -67,11 +73,11 @@ export default connect(mapStateToProps)(({
 					<Text>Last score</Text>
 					<Text>76%</Text>
 					<Button onPress={() => navigation.navigate('New Card', { deckId: deck.id })}>+ New card</Button>
+					<Button mode='contained' onPress={startQuiz}>Start quiz</Button>
 				</View>
 				{/* TODO: Maybe add a delete button here as well */}
 			</View>
 			<ScrollView ref={(element) => scrollViewRef = element}>
-				<Text>{ JSON.stringify(cardLayouts) }</Text>
 				<View style={{ paddingTop: windowHeight - 64 }}>
 					{
 						toArray(deck.cards)
