@@ -126,6 +126,15 @@ export default connect(mapStateToProps)(({
 			fontSize: 72,
 			marginTop: 48
 		},
+		notPlayed: {
+			marginTop: 48,
+			height: 72,
+			fontSize: 18,
+			width: 225,
+			textAlign: 'center',
+			opacity: 0.6,
+			justifyContent: 'center'
+		},
 		scoreSubtitle: {
 			opacity: 0.6,
 			fontSize: 18
@@ -230,7 +239,9 @@ export default connect(mapStateToProps)(({
 								</>
 							)
 							: (
-								<Paragraph>You have not played this quiz yet</Paragraph>
+								<View style={styles.notPlayed}>
+									<Paragraph style={styles.notPlayed}>You have not played this quiz yet</Paragraph>
+								</View>
 							)
 					}
 					<View style={styles.keyPoints}>
