@@ -33,7 +33,8 @@ export function handleAddDeck(deckName) {
 			id: uuid(),
 			name: deckName,
 			cards: {},
-			created: Date.now()
+			created: Date.now(),
+			results: {}
 		}
 
 		dispatch(addDeck(deck))
