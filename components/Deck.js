@@ -50,7 +50,6 @@ export default connect(mapStateToProps)(({
 
 	const handleOnLayout = (event) => {
 		const { height } = event.nativeEvent.layout
-		console.log('Layout is running', height)
 		setHeaderHeight(height)
 	}
 
@@ -131,7 +130,7 @@ export default connect(mapStateToProps)(({
 			scrollEventThrottle={1}
 			onScroll={Animated.event(
 				[{ nativeEvent: { contentOffset: { y: scrollYPosition } } }],
-				{ useNativeDriver: true } // <-- Add this
+				{ useNativeDriver: true }
 			)}
 		>
 			{/*
@@ -185,8 +184,8 @@ export default connect(mapStateToProps)(({
 					}
 					<Button onPress={() => navigation.navigate('New Card', { deckId: deck.id })}>+ New card</Button>
 					<Button mode='contained' onPress={startQuiz} style={styles.startQuiz}>Start quiz</Button>
+					{/* TODO: Maybe add a delete button here as well */}
 				</Animated.View>
-				{/* TODO: Maybe add a delete button here as well */}
 			</Animated.View>
 			<View style={styles.cards}>
 				{
