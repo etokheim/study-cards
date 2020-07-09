@@ -31,7 +31,8 @@ export function handleAddDeck(deckName) {
 		const deck = {
 			id: uuid(),
 			name: deckName,
-			cards: {}
+			cards: {},
+			created: Date.now()
 		}
 
 		dispatch(addDeck(deck))
@@ -73,7 +74,8 @@ export function handleAddCard(question, answer, deckId) {
 			id: uuid(),
 			question,
 			answer,
-			answers: []
+			answers: [],
+			created: Date.now()
 		}
 
 		dispatch(addCard(card, deckId))
