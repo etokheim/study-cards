@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, ScrollView } from 'react-native'
+import { Text, ScrollView, View } from 'react-native'
 import { connect } from 'react-redux'
 import Header from './Header'
 import toArray from '../helpers/toArray'
@@ -69,6 +69,8 @@ export default connect(mapStateToProps)(class Home extends Component {
 							<DeckItem deck={ deck } navigation={ navigation } key={ deck.id } onLongPress={ this.handleLongPress } selected={ selected[deck.id] } />
 						))
 					}
+					{/* Some padding bottom to account for the FAB */}
+					<View style={{ marginBottom: 96 }} />
 				</ScrollView>
 			</>
 		)
