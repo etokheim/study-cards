@@ -49,8 +49,8 @@ export default function CardItem({
 					}
 					<Text style={styles.answer}>{ card.answer }</Text>
 					<View style={styles.answerButtons}>
-						<Button style={styles.answerButton} onPress={() => handleAnswer(card.id, deckId, true)}>Correct</Button>
-						<Button style={styles.answerButton} onPress={() => handleAnswer(card.id, deckId, false)}>Incorrect</Button>
+						<Button style={styles.answerButton} onPress={() => handleAnswer(card.id, deckId, true, setFlipped)}>Correct</Button>
+						<Button style={styles.answerButton} onPress={() => handleAnswer(card.id, deckId, false, setFlipped)}>Incorrect</Button>
 					</View>
 					<Button onPress={() => setFlipped(false)} style={styles.button}>Back</Button>
 					<Text style={styles.cardsCounter}>{`${cardNumber} / ${numberOfCards}`}</Text>

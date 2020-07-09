@@ -55,7 +55,7 @@ export default connect(mapStateToProps)(({
 		setHeaderHeight(height)
 	}
 
-	const handleAnswer = (cardId, deckIdLocalScope, correct) => {
+	const handleAnswer = (cardId, deckIdLocalScope, correct, setFlipped) => {
 		dispatch(handleAnswerCard(cardId, deckIdLocalScope, correct))
 
 		answers[cardId] = {
@@ -64,6 +64,13 @@ export default connect(mapStateToProps)(({
 
 		setAnswers(answers)
 		nextCard()
+
+		// Flip cards back after answering them
+		// If not, restarting the quiz would be kind of awkward, as you'd see the
+		// answers before the question...
+		setTimeout(() => {
+			setFlipped(false)
+		}, 500)
 	}
 
 	const nextCard = (index) => {
