@@ -24,7 +24,6 @@ export default connect()(({ dispatch, route, navigation }) => {
 	return (
 		<ScrollView style={[globalStyles.main]}>
 			<Header navigation={navigation} backButton text='Create card' />
-			<Paragraph>{ deckId }</Paragraph>
 			<TextInput placeholder="What's ..." label='Question' onChangeText={(text) => setQuestion(text)} value={question} />
 			<TextInput
 				style={{
