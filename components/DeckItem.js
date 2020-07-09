@@ -1,7 +1,6 @@
 import React from 'react'
-import {
-	Card, Paragraph, TouchableRipple
-} from 'react-native-paper'
+import { StyleSheet } from 'react-native'
+import { Card, Text, TouchableRipple } from 'react-native-paper'
 
 export default function DeckItem({
 	deck, navigation, onLongPress, selected
@@ -20,11 +19,19 @@ export default function DeckItem({
 			>
 				<>
 					<Card.Title title={deck.name} />
-					<Card.Content>
-						<Paragraph>Not played through</Paragraph>
-					</Card.Content>
+					<Text style={styles.deckInfo}>Played 5  |  Correct 73%  |  Average 54%</Text>
 				</>
 			</TouchableRipple>
 		</Card>
 	)
 }
+
+const styles = StyleSheet.create({
+	deckInfo: {
+		position: 'absolute',
+		bottom: 16,
+		left: 16,
+		right: 16,
+		opacity: 0.6
+	}
+})
