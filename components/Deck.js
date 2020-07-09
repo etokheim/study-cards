@@ -3,7 +3,7 @@ import {
 	View, Text, ScrollView, Dimensions
 } from 'react-native'
 import { connect } from 'react-redux'
-import { Button } from 'react-native-paper'
+import { Button, Paragraph } from 'react-native-paper'
 import Constants from 'expo-constants'
 import Header from './Header'
 import { updateFab } from '../actions/fab'
@@ -25,6 +25,8 @@ export default connect(mapStateToProps)(({
 	const [headerHeight, setHeaderHeight] = useState(60)
 	const [currentCard, setCurrentCard] = useState(0)
 	const [cardLayouts, setCardLayouts] = useState([])
+	const [quizRunId, setQuizRunId] = useState(Date.now())
+	const [answers, setAnswers] = useState({})
 
 	const questionPadding = headerHeight + Constants.statusBarHeight + 128
 
@@ -49,14 +51,27 @@ export default connect(mapStateToProps)(({
 
 	const handleAnswer = (cardId, deckIdLocalScope, correct) => {
 		dispatch(handleAnswerCard(cardId, deckIdLocalScope, correct))
+
+		answers[cardId] = {
+			correct
+		}
+
+		setAnswers(answers)
 		nextCard()
 	}
 
 	const nextCard = (index) => {
 		// If index is a number, keep it, else set it to currentCard + 1
 		const newCardIndex = !isNaN(index) ? index : currentCard + 1
-		setCurrentCard(newCardIndex)
-		scrollViewRef.scrollTo({ x: 0, y: cardLayouts[newCardIndex].y, animated: true })
+
+		// If it was the last card, then finish the quiz,
+		// else show the next card
+		if (newCardIndex >= numberOfCards) {
+			finishQuiz()
+		} else {
+			setCurrentCard(newCardIndex)
+			scrollViewRef.scrollTo({ x: 0, y: cardLayouts[newCardIndex].y, animated: true })
+		}
 	}
 
 	const handleLiftLayout = (layout, index) => {
@@ -66,8 +81,12 @@ export default connect(mapStateToProps)(({
 	}
 
 	const startQuiz = () => {
-		console.log('Start quiz')
 		nextCard(0)
+	}
+
+	const finishQuiz = () => {
+		console.log('Finished quiz')
+		scrollViewRef.scrollTo({ x: 0, y: 0, animated: true })
 	}
 
 	return (
@@ -76,8 +95,8 @@ export default connect(mapStateToProps)(({
 			<View style={{ position: 'absolute', width: '100%' }}>
 				<Header backButton={false} text={deck.name} noMargin handleOnLayout={handleOnLayout} />
 				<View style={{ alignItems: 'center', zIndex: 10 }}>
-					<Text>Last score</Text>
-					<Text>76%</Text>
+					<Paragraph>Last score</Paragraph>
+					<Paragraph>76%</Paragraph>
 					<Button onPress={() => navigation.navigate('New Card', { deckId: deck.id })}>+ New card</Button>
 					<Button mode='contained' onPress={startQuiz}>Start quiz</Button>
 				</View>
