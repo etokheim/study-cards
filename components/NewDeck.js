@@ -8,9 +8,7 @@ import { connect } from 'react-redux'
 import globalStyles from '../styles/global'
 import toArray from '../helpers/toArray'
 
-const mapStateToProps = ({ decks }) => { return { decks } }
-
-export default connect(mapStateToProps)(class NewDeck extends Component {
+export default connect()(class NewDeck extends Component {
 	state = {
 		deckName: ""
 	}
@@ -21,32 +19,19 @@ export default connect(mapStateToProps)(class NewDeck extends Component {
 		})
 	}
 
-	handleSubmit = () => {
+	handleSubmit = async () => {
 		const { deckName } = this.state
-		const { dispatch } = this.props
+		const { dispatch, navigation } = this.props
 
-		dispatch(handleAddDeck(deckName))
+		const newDeck = await dispatch(handleAddDeck(deckName))
 
-		// Set should navigate to true.
-		this.setState({
-			shouldNavigate: true
-		})
+		navigation.navigate('Deck', { deckId: newDeck.id })
 	}
 
 	componentDidMount() {
 		this._unsubscribe = this.props.navigation.addListener('focus', () => {
 			this.props.dispatch(updateFab(false))
 		});
-	}
-
-	componentDidUpdate() {
-		const { navigation, decks } = this.props
-		const {shouldNavigate} = this.state
-
-		if(shouldNavigate) {
-			const latestDeck = toArray(decks).sort((a, b) => a.timestamp - b.timestamp).reverse()[0]
-			navigation.navigate('Deck', { deckId: latestDeck.id })
-		}
 	}
 
 	componentWillUnmount() {
