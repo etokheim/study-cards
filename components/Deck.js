@@ -121,8 +121,8 @@ export default connect(mapStateToProps)(({
 			fontSize: 18
 		},
 		keyPoints: {
-			marginTop: 'auto',
-			marginBottom: 32,
+			marginTop: 32,
+			marginBottom: 'auto',
 			flexDirection: 'row'
 		},
 		keyPoint: {
@@ -142,12 +142,22 @@ export default connect(mapStateToProps)(({
 		keyPointValueOperator: {
 			fontSize: 16
 		},
+		secondaryActions: {
+			flexDirection: 'row',
+			marginBottom: 8
+		},
+		secondaryAction: {
+			marginLeft: 8,
+			marginRight: 8,
+			width: 150
+		},
 		startQuiz: {
 			width: '70%',
 			height: 56,
 			// marginTop: 'auto',
 			marginBottom: 16,
-			justifyContent: 'center'
+			justifyContent: 'center',
+			borderRadius: 32
 		},
 		cards: {
 			paddingTop: windowHeight - 128
@@ -229,8 +239,11 @@ export default connect(mapStateToProps)(({
 							<Text style={styles.keyPointLabel}>Average</Text>
 						</View>
 					</View>
-					<Button onPress={() => navigation.navigate('New Card', { deckId: deck.id })}>+ New card</Button>
 					<Button mode='contained' onPress={startQuiz} style={styles.startQuiz}>Start quiz</Button>
+					<View style={styles.secondaryActions}>
+						<Button style={styles.secondaryAction} onPress={() => navigation.navigate('New Card', { deckId: deck.id })}>+ New card</Button>
+						<Button style={styles.secondaryAction} onPress={() => alert('Coming soon')}>Share</Button>
+					</View>
 					{/* TODO: Maybe add a delete button here as well */}
 				</Animated.View>
 			</Animated.View>
