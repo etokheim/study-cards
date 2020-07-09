@@ -130,16 +130,27 @@ export default connect(mapStateToProps)(({
 					width: '100%',
 					transform: [
 						{ translateY: scrollYPosition }
-					],
-					opacity: scrollYPosition.interpolate({
-						inputRange: [0, 500],
-						outputRange: [1, 0]
-					})
+					]
 				}}
 				>
 					<Header backButton={false} text={deck.name} noMargin handleOnLayout={handleOnLayout} />
-					<View style={{
-						alignItems: 'center', height: windowHeight - questionPadding - 32
+					<Animated.View style={{
+						alignItems: 'center',
+						height: windowHeight - questionPadding - 32,
+
+						// Fade out while scrolling
+						opacity: scrollYPosition.interpolate({
+							inputRange: [0, 500],
+							outputRange: [1, 0]
+						}),
+
+						// Scale down while scrolling
+						transform: [{
+							scale: scrollYPosition.interpolate({
+								inputRange: [0, 500],
+								outputRange: [1, 0.9]
+							})
+						}]
 					}}
 					>
 						<Text>{ JSON.stringify(scrollYPosition) }</Text>
@@ -161,7 +172,7 @@ export default connect(mapStateToProps)(({
 						}
 						<Button onPress={() => navigation.navigate('New Card', { deckId: deck.id })}>+ New card</Button>
 						<Button mode='contained' onPress={startQuiz}>Start quiz</Button>
-					</View>
+					</Animated.View>
 					{/* TODO: Maybe add a delete button here as well */}
 				</Animated.View>
 				<View style={{ paddingTop: windowHeight - 128 }}>
