@@ -32,7 +32,11 @@ export default connect(mapStateToProps)(({
 	const questionPadding = headerHeight + Constants.statusBarHeight + 128
 
 	let unsubscribe
-	let scrollViewRef
+
+	// TODO: Figure out why this works and not the assigning it to a variable.
+	// I had a problem with scrollViewRef being set then becoming null instantly.
+	// Moving it to state somehow fixed the problem.
+	const [scrollViewRef, setScrollViewRef] = useState(React.createRef())
 
 	useEffect(() => {
 		unsubscribe = navigation.addListener('focus', () => {
@@ -106,85 +110,82 @@ export default connect(mapStateToProps)(({
 	const previousCorrectRatio = playedBefore ? Math.round((100 / previousResult.questionCount) * previousResult.correctCount) : undefined
 
 	return (
-		<>
-			<Animated.ScrollView
-				ref={(element) => scrollViewRef = element}
-				scrollEventThrottle={1}
-				onScroll={Animated.event(
-					[{ nativeEvent: { contentOffset: { y: scrollYPosition } } }],
-					{ useNativeDriver: true } // <-- Add this
-				)}
+		<Animated.ScrollView
+			ref={setScrollViewRef}
+			scrollEventThrottle={1}
+			onScroll={Animated.event(
+				[{ nativeEvent: { contentOffset: { y: scrollYPosition } } }],
+				{ useNativeDriver: true } // <-- Add this
+			)}
+		>
+			{/*
+				Mimic position fixed offsetting the view equal to scroll distance.
+				It's an ugly hack, but even though it's a simple thing and a common UI pattern, I
+				can't figure out how to do it properly.
+
+				1. The react-native-touch-through-view seemed very promising, but requires ejecting
+				Expo, which is a no go at this time.
+
+				2. ScrollView doesn't seem to accept pointerEvents attribute, so we can't use that.
+			*/}
+			<Animated.View style={{
+				position: 'absolute',
+				width: '100%',
+				transform: [
+					{ translateY: scrollYPosition }
+				]
+			}}
 			>
-				{/*
-					Mimic position fixed offsetting the view equal to scroll distance.
-					It's an ugly hack, but even though it's a simple thing and a common UI pattern, I
-					can't figure out how to do it properly.
-
-					1. The react-native-touch-through-view seemed very promising, but requires ejecting
-					Expo, which is a no go at this time.
-
-					2. ScrollView doesn't seem to accept pointerEvents attribute, so we can't use that.
-				*/}
+				<Header backButton={false} text={deck.name} noMargin handleOnLayout={handleOnLayout} />
 				<Animated.View style={{
-					position: 'absolute',
-					width: '100%',
-					transform: [
-						{ translateY: scrollYPosition }
-					]
+					alignItems: 'center',
+					height: windowHeight - questionPadding - 32,
+
+					// Fade out while scrolling
+					opacity: scrollYPosition.interpolate({
+						inputRange: [0, 500],
+						outputRange: [1, 0]
+					}),
+
+					// Scale down while scrolling
+					transform: [{
+						scale: scrollYPosition.interpolate({
+							inputRange: [0, 500],
+							outputRange: [1, 0.9]
+						})
+					}]
 				}}
 				>
-					<Header backButton={false} text={deck.name} noMargin handleOnLayout={handleOnLayout} />
-					<Animated.View style={{
-						alignItems: 'center',
-						height: windowHeight - questionPadding - 32,
-
-						// Fade out while scrolling
-						opacity: scrollYPosition.interpolate({
-							inputRange: [0, 500],
-							outputRange: [1, 0]
-						}),
-
-						// Scale down while scrolling
-						transform: [{
-							scale: scrollYPosition.interpolate({
-								inputRange: [0, 500],
-								outputRange: [1, 0.9]
-							})
-						}]
-					}}
-					>
-						<Text>{ JSON.stringify(scrollYPosition) }</Text>
-						{
-							playedBefore
-								? (
-									<>
-										<Paragraph>Last score</Paragraph>
-										<Paragraph>
-											{
-												`${previousCorrectRatio}%`
-											}
-										</Paragraph>
-									</>
-								)
-								: (
-									<Paragraph>You have not played this quiz yet</Paragraph>
-								)
-						}
-						<Button onPress={() => navigation.navigate('New Card', { deckId: deck.id })}>+ New card</Button>
-						<Button mode='contained' onPress={startQuiz}>Start quiz</Button>
-					</Animated.View>
-					{/* TODO: Maybe add a delete button here as well */}
-				</Animated.View>
-				<View style={{ paddingTop: windowHeight - 128 }}>
 					{
-						toArray(deck.cards)
-							.sort((a, b) => a.created - b.created)
-							.map((card, index) => (
-								<CardItem handleAnswer={handleAnswer} liftLayout={handleLiftLayout} key={card.id} card={card} questionPadding={questionPadding} cardNumber={index + 1} numberOfCards={numberOfCards} deckId={deck.id} nextCard={nextCard} />
-							))
+						playedBefore
+							? (
+								<>
+									<Paragraph>Last score</Paragraph>
+									<Paragraph>
+										{
+											`${previousCorrectRatio}%`
+										}
+									</Paragraph>
+								</>
+							)
+							: (
+								<Paragraph>You have not played this quiz yet</Paragraph>
+							)
 					}
-				</View>
-			</Animated.ScrollView>
-		</>
+					<Button onPress={() => navigation.navigate('New Card', { deckId: deck.id })}>+ New card</Button>
+					<Button mode='contained' onPress={startQuiz}>Start quiz</Button>
+				</Animated.View>
+				{/* TODO: Maybe add a delete button here as well */}
+			</Animated.View>
+			<View style={{ paddingTop: windowHeight - 128 }}>
+				{
+					toArray(deck.cards)
+						.sort((a, b) => a.created - b.created)
+						.map((card, index) => (
+							<CardItem handleAnswer={handleAnswer} liftLayout={handleLiftLayout} key={card.id} card={card} questionPadding={questionPadding} cardNumber={index + 1} numberOfCards={numberOfCards} deckId={deck.id} nextCard={nextCard} />
+						))
+				}
+			</View>
+		</Animated.ScrollView>
 	)
 })
