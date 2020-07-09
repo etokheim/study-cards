@@ -1,24 +1,44 @@
-# Animated Splash Screen Example
+# Study Cards
 
 <p>
   <!-- iOS -->
   <img alt="Supports Expo iOS" longdesc="Supports Expo iOS" src="https://img.shields.io/badge/iOS-4630EB.svg?style=flat-square&logo=APPLE&labelColor=999999&logoColor=fff" />
   <!-- Android -->
   <img alt="Supports Expo Android" longdesc="Supports Expo Android" src="https://img.shields.io/badge/Android-4630EB.svg?style=flat-square&logo=ANDROID&labelColor=A4C639&logoColor=fff" />
-  <!-- Web -->
-  <img alt="Supports Expo Web" longdesc="Supports Expo Web" src="https://img.shields.io/badge/web-4630EB.svg?style=flat-square&logo=GOOGLE-CHROME&labelColor=4285F4&logoColor=fff" />
 </p>
 
-This example shows you how to create an animated splash screen for your app. It uses the app loading to load the assets required for the animation. Once that's loaded, it replaces the app loading with a custom component that loads the rest of your app. When all of this is finished, it uses an outro animation and renders the app.
+An app to help with studying. Type in the questions and answers you need to memorize and let the app help you learn them in a fun way. Track your progress and beat your high scores!
 
-## 🚀 How to use
 
-- Run `yarn` or `npm install`
-- Run [`expo start`](https://docs.expo.io/versions/latest/workflow/expo-cli/), try it out.
-- Wait until the app is built and downloaded. Press "run again" to reload the app and splash screen.
+## Development environment
 
-## 📝 Notes
+To get the app up and running for development environments you need to have `git`, `nodejs`, `yarn` and `npm` installed.
 
-- [Expo AppLoading docs](https://docs.expo.io/versions/latest/sdk/app-loading/)
-- [Expo Assets guide](https://docs.expo.io/versions/latest/guides/assets/)
-- [Expo Splash Screen guide](https://docs.expo.io/versions/latest/guides/splash-screens/)
+When you are ready, follow the instructions to start the app:
+
+1. Clone the repository:
+   ```sh
+   git clone [url]
+   ```
+   - You can get the url from the top right corner (`Clone or download 🔽`)
+2. Navigate into the cloned project:
+   ```sh
+   cd study-cards
+   ```
+3. Install the dependencies:
+    ```sh
+   yarn install
+   ```
+   - This can take a minute or two depending on your network connection
+4. Start the development server:
+    ```sh
+   yarn start
+   ```
+   - This can also take a minute or two
+
+
+## Credits
+
+Me, myself and I made this app with pure hard work and a couple sleepless nights – but it was all love ❤
+
+The Expo splash-screen-starting-template also deserves some credits.
