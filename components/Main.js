@@ -10,6 +10,7 @@ import { receiveDecks, handleDeleteItems } from '../actions/decks'
 import { receiveUser } from '../actions/user'
 import { toggleAppbar } from '../actions/appbar'
 import { getAllDecks, getUser } from '../utils/api'
+import { setLocalNotification } from '../utils/notifications'
 
 const mapStateToProps = ({ decks, fab, appbar }) => { return { decks, fab, appbar } }
 
@@ -25,6 +26,9 @@ export default connect(mapStateToProps)(class Main extends Component {
 
 	async componentDidMount() {
 		const { dispatch } = this.props
+
+		// Schedule notifications
+		setLocalNotification()
 
 		// Display FAB on mount
 		dispatch(updateFab(true))
