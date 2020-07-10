@@ -25,6 +25,10 @@ export default connect()(class NewDeck extends Component {
 
 		const newDeck = await dispatch(handleAddDeck(deckName))
 
+		this.setState({
+			deckName: ""
+		})
+
 		navigation.navigate('Deck', { deckId: newDeck.id })
 	}
 
