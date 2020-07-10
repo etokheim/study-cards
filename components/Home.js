@@ -87,9 +87,12 @@ export default connect(mapStateToProps)(class Home extends Component {
 				<ScrollView style={ globalStyles.main }>
 					<Header text={`${welcomingPhrase}, ${user.name}`} />
 					{
-						toArray(decks).map((deck) => (
-							<DeckItem deck={ deck } navigation={ navigation } key={ deck.id } onLongPress={ this.handleLongPress } selected={ selected[deck.id] } />
-						))
+						toArray(decks)
+							.sort((a, b) => a.created - b.created)
+							.reverse()
+							.map((deck) => (
+								<DeckItem deck={ deck } navigation={ navigation } key={ deck.id } onLongPress={ this.handleLongPress } selected={ selected[deck.id] } />
+							))
 					}
 					{/* Some padding bottom to account for the FAB */}
 					<View style={{ marginBottom: 96 }} />
