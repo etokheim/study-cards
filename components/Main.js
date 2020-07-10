@@ -11,6 +11,17 @@ import { receiveUser } from '../actions/user'
 import { toggleAppbar } from '../actions/appbar'
 import { getAllDecks, getUser } from '../utils/api'
 import { setLocalNotification } from '../utils/notifications'
+import { YellowBox } from 'react-native';
+
+/*
+	I need to lift the navigation object up in order to navigate using the FAB.
+	I cannot move the FAB deeper down the component tree, as it would then
+	animate with the stack and not stay independent like it should (according
+	to the design spec).
+*/
+YellowBox.ignoreWarnings([
+  'Non-serializable values were found in the navigation state',
+]);
 
 const mapStateToProps = ({ decks, fab, appbar }) => { return { decks, fab, appbar } }
 
