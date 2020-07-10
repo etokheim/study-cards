@@ -9,7 +9,7 @@ export default function DeckItem({
 	// Calculate stats
 	const resultArray = toArray(deck.results)
 	const playedBefore = !!resultArray.length
-	const previousResult = playedBefore ? resultArray.sort((a, b) => a.startTime - b.startTime)[0] : undefined
+	const previousResult = playedBefore ? resultArray.sort((a, b) => a.startTime - b.startTime)[resultArray.length - 1] : undefined
 	const previousCorrectRatio = playedBefore ? Math.round((100 / previousResult.questionCount) * previousResult.correctCount) : undefined
 	const averageResult = playedBefore ? Math.round(
 		resultArray
