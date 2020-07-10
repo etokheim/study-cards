@@ -62,7 +62,7 @@ export default function decks(state = {}, action) {
 				[action.deckId]: {
 					...state[action.deckId],
 					results: {
-						...state.results,
+						...state[action.deckId].results,
 						[action.result.startTime]: action.result
 					}
 				}
