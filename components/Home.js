@@ -23,14 +23,19 @@ export default connect(mapStateToProps)(class Home extends Component {
 		route.params.liftNavigation(navigation)
 
 		this.setWelcomingPhrase()
+
+		setTimeout(() => {
+			const { user } = this.props
+
+			if(!user.name) {
+				navigation.navigate('Register')
+			}
+		}, 500)
 	}
 
 	componentDidUpdate() {
 		const { user, navigation } = this.props
 		
-		if(!user.name) {
-			navigation.navigate('Register')
-		}
 	}
 
 	handleLongPress = (id) => {
