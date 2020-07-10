@@ -4,7 +4,8 @@ export default function user(state = {}, action) {
 	switch (action.type) {
 		case RECEIVE_USER:
 			return {
-				...action.user
+				...action.user,
+				receivedUser: true
 			}
 		case CREATE_USER:
 			return {
