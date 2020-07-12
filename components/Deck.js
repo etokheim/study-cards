@@ -209,9 +209,9 @@ export default connect(mapStateToProps)(({
 			style={globalStyles.main}
 		>
 			{/*
-				Mimic position fixed offsetting the view equal to scroll distance.
+				Mimic position fixed by offsetting the view equal to scroll distance.
 				It's an ugly hack, but even though it's a simple thing and a common UI pattern, I
-				can't figure out how to do it properly.
+				can't figure out how to do it any other way.
 
 				1. The react-native-touch-through-view seemed very promising, but requires ejecting
 				Expo, which is a no go at this time.
