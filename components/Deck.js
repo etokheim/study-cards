@@ -86,8 +86,6 @@ export default connect(mapStateToProps)(({
 			setCurrentCard(newCardIndex)
 
 			const newYPosition = deckLayout.height + cardLayouts[newCardIndex].y - totalHeaderHeight + 40
-			console.log(deckLayout.height + cardLayouts[newCardIndex].y, '(card.y)', '-', totalHeaderHeight, '(totalHeaderHeight)', '+ 40 =', newYPosition)
-
 			scrollViewRef.scrollTo({ x: 0, y: newYPosition, animated: true })
 		}
 	}

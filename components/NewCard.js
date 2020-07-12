@@ -14,9 +14,6 @@ export default connect()(({ dispatch, route, navigation }) => {
 	const [answer, setAnswer] = useState('')
 
 	const handleSubmit = () => {
-		console.log('question:', question)
-		console.log('answer:', answer)
-
 		dispatch(handleAddCard(question, answer, deckId))
 		navigation.navigate('Deck')
 	}

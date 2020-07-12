@@ -14,7 +14,6 @@ export default connect()(({ dispatch, navigation }) => {
 	const [username, setUsername] = useState('')
 
 	const handleSubmit = () => {
-		console.log('Registering with the name', username)
 		dispatch(handleCreateUser(username))
 
 		navigation.navigate('Home')
