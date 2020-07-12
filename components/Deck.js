@@ -29,6 +29,7 @@ export default connect(mapStateToProps)(({
 	const [quizStartTime, setQuizStartTime] = useState(Date.now())
 	const [answers, setAnswers] = useState({})
 	const [scrollYPosition, setScrollYPosition] = useState(new Animated.Value(0))
+	const [deckLayout, setDeckLayout] = useState(0)
 
 	// About the remaining screen real estate after the header
 	const totalHeaderHeight = headerHeight + Constants.statusBarHeight + 50
@@ -83,7 +84,11 @@ export default connect(mapStateToProps)(({
 			finishQuiz()
 		} else {
 			setCurrentCard(newCardIndex)
-			scrollViewRef.scrollTo({ x: 0, y: cardLayouts[newCardIndex].y - totalHeaderHeight + 40, animated: true })
+
+			const newYPosition = deckLayout.height + cardLayouts[newCardIndex].y - totalHeaderHeight + 40
+			console.log(deckLayout.height + cardLayouts[newCardIndex].y, '(card.y)', '-', totalHeaderHeight, '(totalHeaderHeight)', '+ 40 =', newYPosition)
+
+			scrollViewRef.scrollTo({ x: 0, y: newYPosition, animated: true })
 		}
 	}
 
@@ -189,7 +194,7 @@ export default connect(mapStateToProps)(({
 			borderRadius: 32
 		},
 		cards: {
-			paddingTop: windowHeight - 90
+			marginTop: windowHeight - 90
 		}
 	})
 
@@ -213,11 +218,15 @@ export default connect(mapStateToProps)(({
 
 				2. ScrollView doesn't seem to accept pointerEvents attribute, so we can't use that.
 			*/}
-			<Animated.View style={[ styles.deck, {
-				transform: [
-					{ translateY: scrollYPosition }
-				]
-			}]}
+			<Animated.View
+				style={[ styles.deck, {
+					transform: [
+						{ translateY: scrollYPosition }
+					]
+				}]}
+				onLayout={(event) => {
+					setDeckLayout(event.nativeEvent.layout)
+				}}
 			>
 				<Header navigation={navigation} backButton text={deck.name} noMargin handleOnLayout={handleOnLayout} />
 				<Animated.View style={[styles.deckInfo, {
