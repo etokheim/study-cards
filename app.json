@@ -3,9 +3,20 @@
 		"name": "Study Cards",
 		"description": "A study companion app",
 		"slug": "study-cards",
+		"version": "1.0.0",
+		"icon": "./img/logo.png",
 		"splash": {
-			"image": "./img/study-card-logo.png",
-			"backgroundColor": "#FEF9B0"
+			"image": "./img/logo.png",
+			"backgroundColor": "#FFFFFF"
+		},
+		"android": {
+			"package": "no.tokheimgrafisk.study-cards",
+			"versionCode": 1
+		},
+		"ios": {
+			"supportsTablet": true,
+			"bundleIdentifier": "no.tokheimgrafisk.study-cards",
+			"buildNumber": "1.0.0"
 		}
 	}
 }
