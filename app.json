@@ -10,12 +10,12 @@
 			"backgroundColor": "#FFFFFF"
 		},
 		"android": {
-			"package": "no.tokheimgrafisk.study-cards",
+			"package": "no.tokheimgrafisk.studycards",
 			"versionCode": 1
 		},
 		"ios": {
 			"supportsTablet": true,
-			"bundleIdentifier": "no.tokheimgrafisk.study-cards",
+			"bundleIdentifier": "no.tokheimgrafisk.studycards",
 			"buildNumber": "1.0.0"
 		}
 	}
