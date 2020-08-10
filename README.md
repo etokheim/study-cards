@@ -11,10 +11,6 @@
 
 An app to help with studying. Type in the questions and answers you need to memorize and let the app help you learn them in a fun way. Track your progress and beat your high scores!
 
-## Testing
-
-The app has only been tested for Android, but _should_ work on iOS too.
-
 ## Development environment
 
 To get the app up and running for development environments you need to have `git`, `nodejs`, `yarn` and `npm` installed.
