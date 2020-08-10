@@ -1,3 +1,5 @@
+<img src="img/logo.png" width="150" alt="Study Cards Logo" />
+
 # Study Cards
 
 <p>
