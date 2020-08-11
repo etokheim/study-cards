@@ -1,15 +1,37 @@
-<img src="img/logo.png" width="150" alt="Study Cards Logo" />
+<p align="center">
+   <img src="img/logo.png" width="150" alt="Study Cards Logo" />
 
-# Study Cards
+   <h1>Study Cards</h1>
 
-<p>
-  <!-- iOS -->
-  <img alt="Supports Expo iOS" longdesc="Supports Expo iOS" src="https://img.shields.io/badge/iOS-4630EB.svg?style=flat-square&logo=APPLE&labelColor=999999&logoColor=fff" />
-  <!-- Android -->
-  <img alt="Supports Expo Android" longdesc="Supports Expo Android" src="https://img.shields.io/badge/Android-4630EB.svg?style=flat-square&logo=ANDROID&labelColor=A4C639&logoColor=fff" />
+   <!-- iOS -->
+   <img alt="Supports Expo iOS" longdesc="Supports Expo iOS" src="https://img.shields.io/badge/iOS-4630EB.svg?style=flat-square&logo=APPLE&labelColor=999999&logoColor=fff" />
+   <!-- Android -->&nbsp
+   <img alt="Supports Expo Android" longdesc="Supports Expo Android" src="https://img.shields.io/badge/Android-4630EB.svg?style=flat-square&logo=ANDROID&labelColor=A4C639&logoColor=fff" />
+   <!-- Expo -->&nbsp
+   <img alt="Runs with expo" longdesc="Runs with expo" src="https://img.shields.io/badge/Runs%20with%20Expo-4630EB.svg?style=flat-square&logo=EXPO&labelColor=f3f3f3&logoColor=000" />
+
+   <br>
+   <br>
+
+   <i>
+      An app to help with studying. Type in the questions and answers you need to memorize and let the app help you learn them in a fun way. Track your progress and beat your high scores!
+   </i>
 </p>
 
-An app to help with studying. Type in the questions and answers you need to memorize and let the app help you learn them in a fun way. Track your progress and beat your high scores!
+---
+
+- [📸 Screenshots](#-Screenshots)
+- [👨‍💻 Development environment](#-development-environment)
+- [🏅 Credits](#-credits)
+
+
+## Screenshots
+
+<img src="img/readme/1.jpg" width="250" alt="" />
+<img src="img/readme/2.jpg" width="250" alt="" />
+<img src="img/readme/3.jpg" width="250" alt="" />
+<img src="img/readme/4.jpg" width="250" alt="" />
+
 
 ## Development environment
 
