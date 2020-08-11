@@ -1,13 +1,12 @@
 <p align="center">
-   <img src="img/logo.png" width="150" alt="Study Cards Logo" />
+   <img align="center" src="img/logo.png" width="150" alt="Study Cards Logo" />
+</p>
 
-   <h1>Study Cards</h1>
+<h1 align="center">Study Cards</h1>
 
-   <!-- iOS -->
-   <img alt="Supports Expo iOS" longdesc="Supports Expo iOS" src="https://img.shields.io/badge/iOS-4630EB.svg?style=flat-square&logo=APPLE&labelColor=999999&logoColor=fff" />
-   <!-- Android -->&nbsp
-   <img alt="Supports Expo Android" longdesc="Supports Expo Android" src="https://img.shields.io/badge/Android-4630EB.svg?style=flat-square&logo=ANDROID&labelColor=A4C639&logoColor=fff" />
-   <!-- Expo -->&nbsp
+<p align="center">
+      <img alt="Supports Expo iOS" longdesc="Supports Expo iOS" src="https://img.shields.io/badge/iOS-4630EB.svg?style=flat-square&logo=APPLE&labelColor=999999&logoColor=fff" />&nbsp&nbsp&nbsp
+      <img alt="Supports Expo Android" longdesc="Supports Expo Android" src="https://img.shields.io/badge/Android-4630EB.svg?style=flat-square&logo=ANDROID&labelColor=A4C639&logoColor=fff" />&nbsp&nbsp&nbsp
    <img alt="Runs with expo" longdesc="Runs with expo" src="https://img.shields.io/badge/Runs%20with%20Expo-4630EB.svg?style=flat-square&logo=EXPO&labelColor=f3f3f3&logoColor=000" />
 
    <br>
@@ -20,20 +19,22 @@
 
 ---
 
-- [📸 Screenshots](#-Screenshots)
-- [👨‍💻 Development environment](#-development-environment)
+- [📸 Screenshots](#-screenshots)
+- [💻 Development environment](#-development-environment)
 - [🏅 Credits](#-credits)
 
 
-## Screenshots
+## 📸 Screenshots
 
-<img src="img/readme/1.jpg" width="250" alt="" />
-<img src="img/readme/2.jpg" width="250" alt="" />
-<img src="img/readme/3.jpg" width="250" alt="" />
-<img src="img/readme/4.jpg" width="250" alt="" />
+<p>
+   <img src="img/readme/1.jpg" width="200" alt="" />
+   <img src="img/readme/2.jpg" width="200" alt="" />
+   <img src="img/readme/3.jpg" width="200" alt="" />
+   <img src="img/readme/4.jpg" width="200" alt="" />
+</p>
 
 
-## Development environment
+## 💻 Development environment
 
 To get the app up and running for development environments you need to have `git`, `nodejs`, `yarn` and `npm` installed.
 
@@ -60,7 +61,7 @@ When you are ready, follow the instructions to start the app:
    - This can also take a minute or two
 
 
-## Credits
+## 🏅 Credits
 
 Me, myself and I made this app with pure hard work and a couple sleepless nights – but it was all love ❤
 
