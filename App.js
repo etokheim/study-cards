@@ -106,7 +106,7 @@ function AnimatedSplashScreen({ children, image }) {
 								}
 							]
 						}}
-						source={image}
+						source={require('./img/logo.png')}
 						onLoadEnd={onImageLoaded}
 						fadeDuration={0}
 					/>
