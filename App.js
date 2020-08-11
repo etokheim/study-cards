@@ -91,14 +91,16 @@ function AnimatedSplashScreen({ children, image }) {
 						StyleSheet.absoluteFill,
 						{
 							backgroundColor: Constants.manifest.splash.backgroundColor,
-							opacity: animation
+							opacity: animation,
+							justifyContent: 'center',
+							alignItems: 'center'
 						}
 					]}
 				>
 					<Animated.Image
 						style={{
-							width: '100%',
-							height: '100%',
+							width: '50%',
+							height: '50%',
 							resizeMode: Constants.manifest.splash.resizeMode || 'contain',
 							transform: [
 								{
